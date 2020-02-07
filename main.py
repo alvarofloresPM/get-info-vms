@@ -19,7 +19,7 @@ mns = ("\n"
 "Running	Virtual Machines :	" + hr.std_out +
 "Off		    Virtual Machines :	" + ho.std_out + "\n" + "Free RAM (MB) :  " + m.std_out + d.std_out)
 
-mns = data = string.replace( mns, '\r', '' )
+mns = string.replace( mns, '\r', '' )
 
 file = open("/tmp/environment.txt", "w")
 file.write("MY_DATA=" + mns)
