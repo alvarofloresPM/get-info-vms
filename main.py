@@ -14,11 +14,12 @@ mydb = mysql.connector.connect(
 def windowsinfo(ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session(ip, auth=(Huser, Hpass))
+    s = winrm.Session( ip , auth=(Huser, Hpass))
     vm_count = s.run_ps('(Get-VM).count')
-    vm_count = int(vm_count)-1
-    vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
-    print (vm_name)
+    print (vm_count)
+    # vm_count = int(vm_count)-1
+    # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
+    # print (vm_name)
     return 0
 
 windowsinfo("192.168.100.200")
