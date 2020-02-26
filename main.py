@@ -4,14 +4,14 @@ import string
 import mysql.connector
 
 ## Mysql connection ##
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="OHS&4p%6zH",
-  database="servers"
-)
+# mydb = mysql.connector.connect(
+#   host="localhost",
+#   user="root",
+#   passwd="OHS&4p%6zH",
+#   database="servers"
+# )
 ## Get info of the servers ##
-def windowsinfo(ip):
+def windowsinfo():
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session('192.168.100.201', auth=(Huser, Hpass))
@@ -22,4 +22,4 @@ def windowsinfo(ip):
     # print (vm_name)
     return 0
 
-windowsinfo("192.168.100.200")
+windowsinfo()
