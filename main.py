@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
 def windowsinfo(ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session( "192.168.100.200" , auth=(Huser, Hpass))
+    s = winrm.Session('192.168.100.201', auth=(Huser, Hpass))
     vm_count = s.run_ps('(Get-VM).count')
     print(vm_count)
     # vm_count = int(vm_count)-1
