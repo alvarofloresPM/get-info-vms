@@ -16,7 +16,7 @@ def windowsinfo(ip):
     Hpass = os.getenv('HVpass')
     s = winrm.Session(ip, auth=(Huser, Hpass))
     ht = s.run_ps('(Get-VM).count')
-    # print(vm_count)
+    print(ht)
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
