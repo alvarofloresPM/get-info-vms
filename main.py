@@ -14,7 +14,8 @@ import mysql.connector
 def windowsinfo(ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session({ip}, auth=(Huser, Hpass))
+    print (ip)
+    s = winrm.Session(ip, auth=(Huser, Hpass))
     ht = s.run_ps('(Get-VM).count')
     print(ht)
     print("hola esto es un ejemplo")
