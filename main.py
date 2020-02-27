@@ -23,4 +23,4 @@ def windowsinfo(ip):
     # print (vm_name)
     return;
 
-windowsinfo("192.168.100.201")
+windowsinfo(ip="192.168.100.201")
