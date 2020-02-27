@@ -23,11 +23,12 @@ def windowsinfo(server_ip):
         print (vm_name.std_out) 
         mycursor = mydb.cursor()
         if mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_name.std_out + "'" ):
-            myresult = mycursor.fetchall()
+            myresult = mycursor.fetchone()
             for x in myresult:
                 print(x)
         else:
             print ("NO ---------------------------")
+        mydb.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
