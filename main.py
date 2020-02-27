@@ -28,7 +28,7 @@ def windowsinfo(server_ip):
         myresult = myresult[0]
         print (myresult)
         print (vm_name.std_out)
-        if (myresult == 'Alpha-568PM332-507'):
+        if (vm_name.std_out == 'Alpha-568PM332-507'):
             print ("Igual --------")
         else:
             print ("NAda -------- ")
