@@ -22,4 +22,4 @@ def windowsinfo(server_ip):
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
-windowsinfo("192.168.100.201")
+windowsinfo("192.168.100.205")
