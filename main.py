@@ -11,7 +11,7 @@ import mysql.connector
 #   database="servers"
 # )
 ## Get info of the servers ##
-def windowsinfo(PM_ip):
+def windowsinfo():
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     PM_ip = '192.168.100.201'
