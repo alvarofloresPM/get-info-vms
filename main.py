@@ -24,7 +24,10 @@ def windowsinfo(server_ip):
         mycursor = mydb.cursor()
         mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_name.std_out + "'" )
         myresult = mycursor.fetchone()
-        print (myresult)
+        if myresult == vm_name.std_out:
+            print ("Igual --------")
+        else:
+            print ("NAda -------- ")
         mydb.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
