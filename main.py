@@ -24,6 +24,8 @@ def windowsinfo(server_ip):
         print (vm_name.std_out) 
         mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_name.std_out + "'" )
         myresult = mycursor.fetchone()
+        print (myresult)
+        print (vm_name.std_out)
         if myresult == vm_name.std_out:
             print ("Igual --------")
         else:
