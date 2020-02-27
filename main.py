@@ -22,5 +22,4 @@ def windowsinfo():
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
-    return;
 windowsinfo()
