@@ -3,14 +3,15 @@ import os
 import string
 import mysql.connector
 
-## Mysql connection ##
-# mydb = mysql.connector.connect(
-#   host="localhost",
-#   user="root",
-#   passwd="OHS&4p%6zH",
-#   database="servers"
-# )
-## Get info of the servers ##
+# Mysql connection ##
+pass_db = os.getenv('db_pass')
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd=pass_db,
+  database="servers"
+)
+# Get info of the servers ##
 def windowsinfo(server_ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
@@ -19,7 +20,14 @@ def windowsinfo(server_ip):
     ht = ht.std_out
     for x in range(int(ht)):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
-        print (vm_name.std_out)        
+        print (vm_name.std_out) 
+        mycursor = mydb.cursor()
+        if mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_name.std_out + "'" ):
+            myresult = mycursor.fetchall()
+            for x in myresult:
+                print(x)
+        else:
+            print ("NO ---------------------------")
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
