@@ -22,9 +22,9 @@ def windowsinfo(server_ip):
     for x in range(int(ht)):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         print (vm_name.std_out) 
-        mycursor.execute("SELECT server_name FROM server WHERE server_name='IT-ADSRV02'" )
+        mycursor.execute("SELECT server_name FROM server WHERE server_name='IT-ADSRV02'")
         myresult = mycursor.fetchone()
-        print (myresult)
+        print (myresult[0])
         print (vm_name.std_out)
         if myresult == vm_name.std_out:
             print ("Igual --------")
