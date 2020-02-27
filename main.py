@@ -19,15 +19,16 @@ def windowsinfo(server_ip):
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     mycursor = mydb.cursor()
-    for x in range(int(ht)):
+    #for x in range(int(ht)):
+    for x in range(5):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         print (vm_name.std_out) 
-        mycursor.execute("SELECT server_name FROM server WHERE server_name='IT-ADSRV02'")
+        mycursor.execute("SELECT server_name FROM server WHERE server_name='Alpha-568PM332-507'")
         myresult = mycursor.fetchone()
         myresult = myresult[0]
         print (myresult)
         print (vm_name.std_out)
-        if myresult == vm_name.std_out:
+        if (myresult == vm_name.std_out):
             print ("Igual --------")
         else:
             print ("NAda -------- ")
