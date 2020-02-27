@@ -30,6 +30,8 @@ def windowsinfo(server_ip):
         print (vm_name.std_out)
         if (myresult == vm_name.std_out):
             print ("Igual --------")
+            print ("Igual --------")
+            print ("Igual --------")
         else:
             print ("NAda -------- ")
     mycursor.close()
