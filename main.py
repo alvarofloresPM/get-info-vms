@@ -11,14 +11,15 @@ import mysql.connector
 #   database="servers"
 # )
 ## Get info of the servers ##
-def windowsinfo():
+def windowsinfo(server_ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session('192.168.100.205', auth=(Huser, Hpass))
+    s = winrm.Session(server_ip, auth=(Huser, Hpass))
     ht = s.run_ps('(Get-VM).count')
+    ht = ht.std_out
     print(ht)
     print("hola esto es un ejemplo")
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
-windowsinfo()
+windowsinfo("192.168.100.201")
