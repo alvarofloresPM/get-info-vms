@@ -25,9 +25,10 @@ def windowsinfo(server_ip):
         mycursor.execute("SELECT server_name FROM server WHERE server_name='Alpha-568PM332-507'")
         myresult = mycursor.fetchone()
         myresult = myresult[0]
+        vm_names = vm_name.std_out
         print (myresult)
-        print (vm_name.std_out)
-        if ( myresult is vm_name.std_out ):
+        print (vm_names)
+        if ( myresult == vm_names ):
             print ("Igual --------")
         else:
             print ("NAda -------- ")
