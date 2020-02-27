@@ -17,7 +17,7 @@ def windowsinfo(server_ip):
     s = winrm.Session(server_ip, auth=(Huser, Hpass))
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
-    for x in range(ht):
+    for x in range(int(ht)):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + x )
         print (vm_name.std_out)        
     # vm_count = int(vm_count)-1
