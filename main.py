@@ -22,13 +22,12 @@ def windowsinfo(server_ip):
     #for x in range(int(ht)):
     for x in range(5):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
-        print (vm_name.std_out) 
         mycursor.execute("SELECT server_name FROM server WHERE server_name='Alpha-568PM332-507'")
         myresult = mycursor.fetchone()
         myresult = myresult[0]
         print (myresult)
         print (vm_name.std_out)
-        if (vm_name.std_out == 'Alpha-568PM332-507'):
+        if (str(myresult) == str(vm_name.std_out)):
             print ("Igual --------")
         else:
             print ("NAda -------- ")
