@@ -27,7 +27,7 @@ def windowsinfo(server_ip):
         myresult = myresult[0]
         print (myresult)
         print (vm_name.std_out)
-        if (str(myresult) == str(vm_name.std_out)):
+        if ( myresult is vm_name.std_out ):
             print ("Igual --------")
         else:
             print ("NAda -------- ")
