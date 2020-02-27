@@ -18,7 +18,7 @@ def windowsinfo(server_ip):
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     for x in range(int(ht)):
-        vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + x )
+        vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         print (vm_name.std_out)        
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
