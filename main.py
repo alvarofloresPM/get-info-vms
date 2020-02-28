@@ -26,8 +26,8 @@ def windowsinfo(server_ip):
         myresult = mycursor.fetchone()
         myresult = myresult[0]
         vm_names = vm_name.std_out
-        print (myresult)
-        print (vm_names)
+        print (type(myresult))
+        print (type(vm_names))
         if ( myresult == vm_names ):
             print ("Igual --------")
         else:
