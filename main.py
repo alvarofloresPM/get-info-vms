@@ -28,7 +28,7 @@ def windowsinfo(server_ip):
         mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_names + "'")
         myresult = mycursor.fetchone()
         print (myresult)
-        if myresult is None:
+        if myresult is not None:
             myresult = str(myresult[0])
         print (myresult)
         print (vm_names)
