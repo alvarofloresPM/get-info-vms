@@ -22,11 +22,11 @@ def windowsinfo(server_ip):
     #for x in range(int(ht)):
     for x in range(5):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
-        mycursor.execute("SELECT server_name FROM server WHERE server_name='Alpha-568PM332-507'")
-        myresult = mycursor.fetchone()
-        myresult = str(myresult[0])
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
+        mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_names + "'")
+        myresult = mycursor.fetchone()
+        myresult = str(myresult[0])
         print (myresult)
         print (vm_names)
         if ( myresult == vm_names ):
