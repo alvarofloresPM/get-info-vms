@@ -4,7 +4,6 @@ import string
 import mysql.connector
 import re
 import nmap
-import time
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
@@ -33,9 +32,6 @@ def createnewserver(data, master):
     server_state = ""
     server_ram = ""
     server_uptime = ""
-    server_ssh = "False"
-    server_web = "False"
-    server_mysql = "False"
     server_os = ""
     server_service = ""
     Huser = os.getenv('HVuser')
@@ -61,15 +57,18 @@ def createnewserver(data, master):
             print (server_vlan)
     # server_domain
     nmScan.scan(server_ip, '21-443')
-    time.sleep(10)
-    #response = str(nmScan[server_ip]['hostnames'][0]['name'])
-    response = nmScan[server_ip]
-    print (type(response))
-    print (response)
+    response = str(nmScan[server_ip].hostname())
     if response is not None:
             server_domain = response
             print (server_domain)
-
+    # server_state
+    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall("State : ([a-zA-Z]{1,10})", response)
+    if response is not None:
+            server_state = str(response[1])
+            print (server_state)
     return 0
 
 # Get info of the servers ##
