@@ -37,7 +37,7 @@ def createnewserver(data, master):
     server_service = ""
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session(server_ip, auth=(Huser, Hpass))
+    s = winrm.Session(server_master, auth=(Huser, Hpass))
     
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses")
     print (response)
