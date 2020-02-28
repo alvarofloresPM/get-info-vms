@@ -4,7 +4,7 @@ import string
 import mysql.connector
 import re
 import nmap
-import json
+import time
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
@@ -60,7 +60,8 @@ def createnewserver(data, master):
             server_vlan = str(response[0])
             print (server_vlan)
     # server_domain
-    nmScan.scan(server_ip)
+    nmScan.scan(server_ip, '21-443')
+    time.sleep(10)
     #response = str(nmScan[server_ip]['hostnames'][0]['name'])
     response = nmScan[server_ip]
     print (type(response))
