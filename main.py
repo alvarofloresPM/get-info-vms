@@ -59,7 +59,8 @@ def createnewserver(data, master):
             server_vlan = str(response[0])
             print (server_vlan)
     # server_domain
-    response =  nmScan['10.100.8.118'].hostname()
+    nmScan.scan(server_ip, '21-443')
+    response =  nmScan[server_ip].hostname()
     response = response.rstrip()
     if response is not None:
             server_domain = str(response)
