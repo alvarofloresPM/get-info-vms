@@ -24,7 +24,9 @@ def windowsinfo(server_ip):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
+        print ("SELECT server_name FROM server WHERE server_name='" + vm_names + "'")
         mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_names + "'")
+
         myresult = mycursor.fetchone()
         myresult = str(myresult[0])
         print (myresult)
