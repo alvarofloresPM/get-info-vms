@@ -58,6 +58,7 @@ def createnewserver(data, master):
     # server_domain
     nmScan.scan(server_ip, '21-443')
     response = str(nmScan[server_ip].hostname())
+    response = response.rstrip()
     if response is not None:
             server_domain = response
             print (server_domain)
