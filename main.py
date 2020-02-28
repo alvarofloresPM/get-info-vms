@@ -62,7 +62,7 @@ def createnewserver(data, master):
     # server_domain
     nmScan.scan(server_ip, '21-443')
     #response = str(nmScan[server_ip]['hostnames'][0]['name'])
-    response = nmScan[server_ip]['tcp']['22']['state']
+    response = nmScan[server_ip]
     print (type(response))
     print (response)
     if response is not None:
