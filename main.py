@@ -60,7 +60,7 @@ def createnewserver(data, master):
             server_vlan = str(response[0])
             print (server_vlan)
     # server_domain
-    nmScan.scan(server_ip, '21-443')
+    nmScan.scan(server_ip)
     #response = str(nmScan[server_ip]['hostnames'][0]['name'])
     response = nmScan[server_ip]
     print (type(response))
