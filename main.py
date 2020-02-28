@@ -69,8 +69,8 @@ def windowsinfo(server_ip):
             updatestatus(myresult)
             updatetime(myresult)
         else:
-            print ("Create new Data -------- " + myresult )
-            createnewserver(myresult,server_ip)
+            print ("Create new Data -------- " + vm_names)
+            createnewserver(vm_names,server_ip)
     mycursor.close()
     mydb.close()
     # vm_count = int(vm_count)-1
