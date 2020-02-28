@@ -13,12 +13,37 @@ mydb = mysql.connector.connect(
 )
 # functions to update data
 def updateram(data):
+    server_ram = ""
     return 0
 def updatestatus(data):
+    server_state = ""
     return 0
 def updatetime(data):
+    server_uptime = ""
     return 0
-def createnewserver(data):
+def createnewserver(data, master):
+    server_master = master
+    server_name = data
+    server_ip = ""
+    server_vlan = ""
+    server_domain = ""
+    server_state = ""
+    server_ram = ""
+    server_uptime = ""
+    server_ssh = ""
+    server_web = ""
+    server_mysql = ""
+    server_os = ""
+    server_service = ""
+    Huser = os.getenv('HVuser')
+    Hpass = os.getenv('HVpass')
+    s = winrm.Session(server_ip, auth=(Huser, Hpass))
+    
+    response = s.run_ps("get-vm -Name " + data + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses")
+    response = response.std_out
+    response = response.rstrip()
+    print (response)
+
     return 0
 
 # Get info of the servers ##
@@ -30,7 +55,7 @@ def windowsinfo(server_ip):
     ht = ht.std_out
     mycursor = mydb.cursor()
     #for x in range(int(ht)):
-    for x in range(5):
+    for x in range(1):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
@@ -45,7 +70,7 @@ def windowsinfo(server_ip):
             updatetime(myresult)
         else:
             print ("Create new Data -------- " + myresult )
-            createnewserver(myresult)
+            createnewserver(myresult,server_ip)
     mycursor.close()
     mydb.close()
     # vm_count = int(vm_count)-1
