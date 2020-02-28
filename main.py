@@ -43,7 +43,7 @@ def createnewserver(data, master):
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
     response = response.std_out
     response = response.rstrip()
-    response = re.findall("[0-9]", response)
+    response = re.findall("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", response)
     print (type(response))
     print (response)
 
