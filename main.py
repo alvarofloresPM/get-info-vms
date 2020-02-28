@@ -61,7 +61,7 @@ def createnewserver(data, master):
             print (server_vlan)
     # server_domain
     nmScan.scan(server_ip, '21-443')
-    response = nmScan[server_ip]['status']['state']
+    response = nmScan[server_ip].has_tcp(22)
     print (type(response))
     print (response)
     if response is not None:
