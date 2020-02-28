@@ -3,6 +3,7 @@ import os
 import string
 import mysql.connector
 import re
+import nmap
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
@@ -31,14 +32,16 @@ def createnewserver(data, master):
     server_state = ""
     server_ram = ""
     server_uptime = ""
-    server_ssh = ""
-    server_web = ""
-    server_mysql = ""
+    server_ssh = "False"
+    server_web = "False"
+    server_mysql = "False"
     server_os = ""
     server_service = ""
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(server_master, auth=(Huser, Hpass))
+    nmScan = nmap.PortScanner()
+
     # server_ip
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
     response = response.std_out
@@ -55,6 +58,12 @@ def createnewserver(data, master):
     if response is not None:
             server_vlan = str(response[0])
             print (server_vlan)
+    # server_domain
+    response =  nmScan[server_ip].hostname()
+    response = response.rstrip()
+    if response is not None:
+            server_domain = str(response)
+            print (server_domain)
 
     return 0
 
