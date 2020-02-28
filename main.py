@@ -39,14 +39,22 @@ def createnewserver(data, master):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(server_master, auth=(Huser, Hpass))
-    
+    # server_ip
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
     response = response.std_out
     response = response.rstrip()
     response = re.findall("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", response)
-    response = str(response[0])
-    print (type(response))
-    print (response)
+    if response is not None:
+            server_ip = str(response[0])
+            print (server_ip)
+    # server_vlan
+    response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall("VLAN [0-9]{2,4}", response)
+    if response is not None:
+            server_vlan = str(response[0])
+            print (server_vlan)
 
     return 0
 
