@@ -2,6 +2,7 @@ import winrm
 import os
 import string
 import mysql.connector
+import re
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
@@ -39,9 +40,10 @@ def createnewserver(data, master):
     Hpass = os.getenv('HVpass')
     s = winrm.Session(server_master, auth=(Huser, Hpass))
     
-    response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses")
+    response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
     response = response.std_out
     response = response.rstrip()
+    response = re.findall("[0-9]", response)
     print (type(response))
     print (response)
 
