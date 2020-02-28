@@ -63,11 +63,13 @@ def createnewserver(data, master):
             print (server_domain)
     # server_state
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    print (response)
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
+    print (response)
     if response is not None:
-            server_state = str(response[1])
+            server_state = str(response[0])
             print (server_state)
     return 0
 
