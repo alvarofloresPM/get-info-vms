@@ -40,9 +40,9 @@ def createnewserver(data, master):
     s = winrm.Session(server_master, auth=(Huser, Hpass))
     
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses")
-    print (response)
     response = response.std_out
     response = response.rstrip()
+    print (type(response))
     print (response)
 
     return 0
