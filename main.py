@@ -11,6 +11,16 @@ mydb = mysql.connector.connect(
   passwd=pass_db,
   database="servers"
 )
+# functions to update data
+def updateram(data):
+    return 0
+def updatestatus(data):
+    return 0
+def updatetime(data):
+    return 0
+def createnewserver(data):
+    return 0
+
 # Get info of the servers ##
 def windowsinfo(server_ip):
     Huser = os.getenv('HVuser')
@@ -24,14 +34,18 @@ def windowsinfo(server_ip):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
-        mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_names + "'")
+        mycursor.execute("SELECT server_name FROM server WHERE server_name='" + vm_names + "' LIMIT 1")
         myresult = mycursor.fetchone()
         if myresult is not None:
             myresult = str(myresult[0])
         if ( myresult == vm_names ):
-            print ("Igual --------" + myresult )
+            print ("Update data --------" + myresult )
+            updateram(myresult)
+            updatestatus(myresult)
+            updatetime(myresult)
         else:
-            print ("NAda -------- ")
+            print ("Create new Data -------- " + myresult )
+            createnewserver(myresult)
     mycursor.close()
     mydb.close()
     # vm_count = int(vm_count)-1
