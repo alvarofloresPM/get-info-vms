@@ -81,7 +81,7 @@ def createnewserver(data, master):
         server_ram = str(server_ram) + " MB"
         print (server_ram)
     # server_uptime
-    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
     print (response)
     response = response.std_out
     #response = response.rstrip()
