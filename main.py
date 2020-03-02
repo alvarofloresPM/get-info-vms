@@ -112,8 +112,7 @@ def windowsinfo(server_ip):
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     mycursor = mydb.cursor()
-    #for x in range(int(ht)):
-    for x in range(1):
+    for x in range(int(ht)):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
