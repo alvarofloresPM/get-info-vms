@@ -82,15 +82,14 @@ def createnewserver(data, master):
     # server_uptime
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
     response = response.std_out
-    response = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
-    print ("uno " + response)
-    if len(response) != 0:
+    response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
+    response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
+    if len(response2) != 0:
         response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
-        print ("dos " + response)
         server_uptime_d = ""
         server_uptime_h = str(response[0][0])
         server_uptime_m = str(response[0][1])
-    else:
+    if len(response1) != 0:
         server_uptime_d = str(response[0][0])
         server_uptime_h = str(response[0][1])
         server_uptime_m = str(response[0][2])
