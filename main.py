@@ -96,7 +96,7 @@ def createnewserver(data, master):
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
     # server_os
     nmScan.scan(server_ip,  "arguments='-O'")
-    response = str(nmScan[server_ip]['osmatch'])
+    response = str(nmScan[server_ip])
     response = response.rstrip()
     if response is not None:
         server_os = response
