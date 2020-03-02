@@ -95,14 +95,13 @@ def createnewserver(data, master):
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
     
     # Insert data to the database
-    # mycursor = mydb.cursor()
-    # sql = "INSERT INTO server (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    # val = (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime)
-    # mycursor.execute(sql, val)
-    # mydb.commit()
-    # print(mycursor.rowcount, "record inserted.")
-    # mycursor.close()
-    # mydb.close()
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO server (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+    mycursor.close()
 
 # Get info of the servers ##
 def windowsinfo(server_ip):
@@ -129,7 +128,6 @@ def windowsinfo(server_ip):
             print ("Create new Data -------- " + vm_names)
             createnewserver(vm_names,server_ip)
     mycursor.close()
-    mydb.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
