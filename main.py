@@ -54,6 +54,7 @@ def createnewserver(data, master):
         server_vlan = str(response[0])
         print (server_vlan)
     # server_domain
+    print ("ERROR   ---   " + server_ip)
     if server_ip is not None:
         nmScan.scan(server_ip, '21-443')
         response = str(nmScan[server_ip].hostname())
@@ -105,10 +106,10 @@ def createnewserver(data, master):
     mycursor.close()
 
 # Get info of the servers ##
-def windowsinfo(server_ip):
+def windowsinfo(master_ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session(server_ip, auth=(Huser, Hpass))
+    s = winrm.Session(master_ip, auth=(Huser, Hpass))
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     mycursor = mydb.cursor()
@@ -127,7 +128,7 @@ def windowsinfo(server_ip):
             updatetime(myresult)
         else:
             print ("Create new Data -------- " + vm_names)
-            createnewserver(vm_names,server_ip)
+            createnewserver(vm_names,master_ip)
     mycursor.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
