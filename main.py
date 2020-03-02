@@ -54,12 +54,13 @@ def createnewserver(data, master):
         server_vlan = str(response[0])
         print (server_vlan)
     # server_domain
-    nmScan.scan(server_ip, '21-443')
-    response = str(nmScan[server_ip].hostname())
-    response = response.rstrip()
-    if len(response) != 0:
-        server_domain = response
-        print (server_domain)
+    if server_ip is not None:
+        nmScan.scan(server_ip, '21-443')
+        response = str(nmScan[server_ip].hostname())
+        response = response.rstrip()
+        if len(response) != 0:
+            server_domain = response
+            print (server_domain)
     # server_state
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
     response = response.std_out
