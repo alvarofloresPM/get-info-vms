@@ -70,6 +70,17 @@ def createnewserver(data, master):
     if response is not None:
             server_state = str(response[0])
             print (server_state)
+    # server_ram
+    response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall("[0-9]{1,20}", response)
+    if response is not None:
+            server_ram = str(response[0])
+            server_ram = int(server_ram)/1024000
+            server_ram = str(server_ram) + " MB"
+            print (server_ram)
+
     return 0
 
 # Get info of the servers ##
