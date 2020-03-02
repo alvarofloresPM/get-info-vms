@@ -96,12 +96,12 @@ def createnewserver(data, master):
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
     # server_os
     nmScan.scan(server_ip,  'arguments="-O"')
-    response = str(nmScan[server_ip]['osmatch'][0]['osclass'][0]['vendor'])
+    response = str(nmScan[server_ip]['osmatch'][int(0)]['osclass'][int(0)]['vendor'])
     response = response.rstrip()
     if response is not None:
         server_os = response
         print (server_os)
-        
+
     return 0
 
 # Get info of the servers ##
