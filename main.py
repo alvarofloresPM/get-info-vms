@@ -41,7 +41,7 @@ def createnewserver(data, master):
     response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
     response = response.std_out
     response = response.rstrip()
-    response = re.findall("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", response)
+    response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
     if response is not None:
         server_ip = str(response[0])
         print (server_ip)
@@ -75,8 +75,8 @@ def createnewserver(data, master):
     response = re.findall("[0-9]{1,20}", response)
     if response is not None:
         server_ram = str(response[0])
-        server_ram = int(server_ram)/1000000
-        server_ram = str(server_ram) + " MB"
+        server_ram = int(server_ram)/1000000000
+        server_ram = str(server_ram) + " GB"
         print (server_ram)
     # server_uptime
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
