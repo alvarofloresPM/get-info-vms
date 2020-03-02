@@ -42,7 +42,7 @@ def createnewserver(data, master):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
-    if response[0] is not None:
+    if len(response) != 0:
         server_ip = str(response[0])
         print (server_ip)
     # server_vlan
@@ -50,14 +50,14 @@ def createnewserver(data, master):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("VLAN [0-9]{2,4}", response)
-    if response[0] is not None:
+    if len(response) != 0:
         server_vlan = str(response[0])
         print (server_vlan)
     # server_domain
     nmScan.scan(server_ip, '21-443')
     response = str(nmScan[server_ip].hostname())
     response = response.rstrip()
-    if response is not None:
+    if len(response) != 0:
         server_domain = response
         print (server_domain)
     # server_state
@@ -65,7 +65,7 @@ def createnewserver(data, master):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
-    if response[0] is not None:
+    if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
     # server_ram
@@ -73,7 +73,7 @@ def createnewserver(data, master):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("[0-9]{1,20}", response)
-    if response is not None:
+    if len(response) != 0:
         server_ram = str(response[0])
         server_ram = int(server_ram)/1000000000
         server_ram = str(server_ram) + " GB"
@@ -82,7 +82,7 @@ def createnewserver(data, master):
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
     response = response.std_out
     response = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
-    if response[0][0] is None:
+    if len(response) != 0:
         response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         server_ram_d = ""
         server_ram_h = str(response[0][0])
