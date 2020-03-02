@@ -37,36 +37,8 @@ def createnewserver(data, master):
     s = winrm.Session(server_master, auth=(Huser, Hpass))
     nmScan = nmap.PortScanner()
 
-    # server_ip
-    response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
-    response = response.std_out
-    response = response.rstrip()
-    response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
-    if len(response) != 0:
-        server_ip = str(response[0])
-        print (server_ip)
-    # server_vlan
-    response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
-    response = response.std_out
-    response = response.rstrip()
-    response = re.findall("VLAN [0-9]{2,4}", response)
-    if len(response) != 0:
-        server_vlan = str(response[0])
-        print (server_vlan)
-    # server_domain
-    if server_ip != "":
-        nmScan.scan(server_ip, '21-443')
-        try:
-            response = str(nmScan[server_ip].hostname())
-            response = response.rstrip()
-        except KeyError as exkey:
-            print("[!] Cannot scan host!: " + server_ip)
-        print(type(response))
-        print (str(response))
-        if len(response) != 0:
-            server_domain = response[0]
-            print (server_domain)
     # server_state
+    response = ""
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
@@ -74,31 +46,72 @@ def createnewserver(data, master):
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
+
+    # server_ip
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
+        response = response.std_out
+        response = response.rstrip()
+        response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
+        if len(response) != 0:
+            server_ip = str(response[0])
+            print (server_ip)
+    # server_vlan
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
+        response = response.std_out
+        response = response.rstrip()
+        response = re.findall("VLAN [0-9]{2,4}", response)
+        if len(response) != 0:
+            server_vlan = str(response[0])
+            print (server_vlan)
+    # server_domain
+    response = ""
+    if server_state != "Off":
+        if server_ip != "":
+            nmScan.scan(server_ip, '21-443')
+            try:
+                response = str(nmScan[server_ip].hostname())
+                response = response.rstrip()
+            except KeyError as exkey:
+                print("[!] Cannot scan host!: " + server_ip)
+            print(type(response))
+            print (str(response))
+            if len(response) != 0:
+                server_domain = str(response)
+                print (server_domain)
+    
     # server_ram
-    response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
-    response = response.std_out
-    response = response.rstrip()
-    response = re.findall("[0-9]{1,20}", response)
-    if len(response) != 0:
-        server_ram = str(response[0])
-        server_ram = int(server_ram)/1000000
-        server_ram = str(server_ram) + " MB"
-        print (server_ram)
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
+        response = response.std_out
+        response = response.rstrip()
+        response = re.findall("[0-9]{1,20}", response)
+        if len(response) != 0:
+            server_ram = str(response[0])
+            server_ram = int(server_ram)/1000000
+            server_ram = str(server_ram) + " MB"
+            print (server_ram)
     # server_uptime
-    response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
-    response = response.std_out
-    response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
-    response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
-    if len(response2) != 0:
-        server_uptime_d = ""
-        server_uptime_h = str(response2[0][0])
-        server_uptime_m = str(response2[0][1])
-    if len(response1) != 0:
-        server_uptime_d = str(response1[0][0])
-        server_uptime_h = str(response1[0][1])
-        server_uptime_m = str(response1[0][2])
-    server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
-    print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
+        response = response.std_out
+        response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
+        response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
+        if len(response2) != 0:
+            server_uptime_d = ""
+            server_uptime_h = str(response2[0][0])
+            server_uptime_m = str(response2[0][1])
+        if len(response1) != 0:
+            server_uptime_d = str(response1[0][0])
+            server_uptime_h = str(response1[0][1])
+            server_uptime_m = str(response1[0][2])
+        server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
+        print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
     
     # Insert data to the database
     mycursor = mydb.cursor()
