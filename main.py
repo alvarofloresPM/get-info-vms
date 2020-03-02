@@ -58,6 +58,7 @@ def createnewserver(data, master):
         nmScan.scan(server_ip, '21-443')
         response = str(nmScan[server_ip].hostname())
         response = response.rstrip()
+        print (response)
         if len(response) != 0:
             server_domain = response
             print (server_domain)
@@ -76,8 +77,8 @@ def createnewserver(data, master):
     response = re.findall("[0-9]{1,20}", response)
     if len(response) != 0:
         server_ram = str(response[0])
-        server_ram = int(server_ram)/1000000000
-        server_ram = str(server_ram) + " GB"
+        server_ram = int(server_ram)/1000000
+        server_ram = str(server_ram) + " MB"
         print (server_ram)
     # server_uptime
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
