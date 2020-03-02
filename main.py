@@ -34,7 +34,7 @@ def createnewserver(data, master_ip, master_name):
     server_uptime = ""
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
-    s = winrm.Session(server_master, auth=(Huser, Hpass))
+    s = winrm.Session(master_ip, auth=(Huser, Hpass))
     nmScan = nmap.PortScanner()
 
     # server_state
