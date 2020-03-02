@@ -45,41 +45,56 @@ def createnewserver(data, master):
     response = response.rstrip()
     response = re.findall("(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)", response)
     if response is not None:
-            server_ip = str(response[0])
-            print (server_ip)
+        server_ip = str(response[0])
+        print (server_ip)
     # server_vlan
     response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
     response = response.std_out
     response = response.rstrip()
     response = re.findall("VLAN [0-9]{2,4}", response)
     if response is not None:
-            server_vlan = str(response[0])
-            print (server_vlan)
+        server_vlan = str(response[0])
+        print (server_vlan)
     # server_domain
     nmScan.scan(server_ip, '21-443')
     response = str(nmScan[server_ip].hostname())
     response = response.rstrip()
     if response is not None:
-            server_domain = response
-            print (server_domain)
+        server_domain = response
+        print (server_domain)
     # server_state
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
     if response is not None:
-            server_state = str(response[0])
-            print (server_state)
+        server_state = str(response[0])
+        print (server_state)
     # server_ram
     response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
     response = response.std_out
     response = response.rstrip()
     response = re.findall("[0-9]{1,20}", response)
     if response is not None:
-            server_ram = str(response[0])
-            server_ram = int(server_ram)/1024000
-            server_ram = str(server_ram) + " MB"
-            print (server_ram)
+        server_ram = str(response[0])
+        server_ram = int(server_ram)/1000000
+        server_ram = str(server_ram) + " MB"
+        print (server_ram)
+    # server_uptime
+    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
+    if response is None:
+        response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2})", response)
+        server_ram_d = ""
+        server_ram_h = str(response[0])
+        server_ram_m = str(response[1])
+    else:
+        server_ram_d = str(response[0])
+        server_ram_h = str(response[1])
+        server_ram_m = str(response[2])
+    print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
 
     return 0
 
