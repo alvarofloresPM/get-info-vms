@@ -42,7 +42,7 @@ def createnewserver(data, master):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
-    print ("ERROR     ---   " + response)
+    print ("ERROR     ---   " + str(response))
     if response is not None:
         server_ip = str(response[0])
         print (server_ip)
