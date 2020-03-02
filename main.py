@@ -95,14 +95,14 @@ def createnewserver(data, master):
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
     
     # Insert data to the database
-    mycursor = mydb.cursor()
-    sql = "INSERT INTO server (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-    val = (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime)
-    mycursor.execute(sql, val)
-    mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
-    mycursor.close()
-    mydb.close()
+    # mycursor = mydb.cursor()
+    # sql = "INSERT INTO server (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    # val = (server_master, server_name, server_ip, server_vlan, server_domain, server_state, server_ram, server_uptime)
+    # mycursor.execute(sql, val)
+    # mydb.commit()
+    # print(mycursor.rowcount, "record inserted.")
+    # mycursor.close()
+    # mydb.close()
 
 # Get info of the servers ##
 def windowsinfo(server_ip):
