@@ -83,13 +83,9 @@ def createnewserver(data, master):
     # server_uptime
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
     response = response.std_out
-    print (response)
-    #response = response.rstrip()
     response = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
-    print (response)
     if response is None:
         response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
-        print (response)
         server_ram_d = ""
         server_ram_h = str(response[0][0])
         server_ram_m = str(response[0][1])
@@ -98,7 +94,14 @@ def createnewserver(data, master):
         server_ram_h = str(response[0][1])
         server_ram_m = str(response[0][2])
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
-
+    # server_os
+    nmScan.scan(server_ip,  'arguments="-O"')
+    response = str(nmScan[server_ip]['osmatch'][0]['osclass'][0]['vendor'])
+    response = response.rstrip()
+    if response is not None:
+        server_os = response
+        print (server_os)
+        
     return 0
 
 # Get info of the servers ##
