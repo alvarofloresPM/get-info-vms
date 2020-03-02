@@ -177,9 +177,9 @@ def windowsinfo(master_ip, master_name):
             updatetime(myresult)
         else:
             print ("Create new Data -------- " + vm_names)
-            createnewserver(vm_names,master_ip,master_name)
+            createnewserver(vm_names, master_ip, master_name)
     mycursor.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
-windowsinfo("192.168.100.205", "PHOBOS")
+windowsinfo("192.168.100.205","PHOBOS")
