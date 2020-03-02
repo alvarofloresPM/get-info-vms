@@ -85,14 +85,13 @@ def createnewserver(data, master):
     response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
     response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
     if len(response2) != 0:
-        response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         server_uptime_d = ""
-        server_uptime_h = str(response[0][0])
-        server_uptime_m = str(response[0][1])
+        server_uptime_h = str(response2[0][0])
+        server_uptime_m = str(response2[0][1])
     if len(response1) != 0:
-        server_uptime_d = str(response[0][0])
-        server_uptime_h = str(response[0][1])
-        server_uptime_m = str(response[0][2])
+        server_uptime_d = str(response1[0][0])
+        server_uptime_h = str(response1[0][1])
+        server_uptime_m = str(response1[0][2])
     server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
     print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
     
