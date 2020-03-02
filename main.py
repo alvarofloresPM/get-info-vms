@@ -62,9 +62,9 @@ def createnewserver(data, master):
         except KeyError as exkey:
             print("[!] Cannot scan host!: " + server_ip)
         print(type(response))
-        print (response)
+        print (str(response))
         if len(response) != 0:
-            server_domain = response
+            server_domain = response[0]
             print (server_domain)
     # server_state
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
