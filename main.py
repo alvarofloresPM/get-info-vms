@@ -32,8 +32,6 @@ def createnewserver(data, master):
     server_state = ""
     server_ram = ""
     server_uptime = ""
-    server_os = ""
-    server_service = ""
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(server_master, auth=(Huser, Hpass))
@@ -94,13 +92,7 @@ def createnewserver(data, master):
         server_ram_h = str(response[0][1])
         server_ram_m = str(response[0][2])
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
-    # server_os
-    nmScan.scan(server_ip,  arguments='-O')
-    response = str(nmScan[server_ip])
-    response = response.rstrip()
-    if response is not None:
-        server_os = response
-        print (server_os)
+    
 
     return 0
 
