@@ -23,8 +23,8 @@ def updatestatus(data):
 def updatetime(data):
     server_uptime = ""
     return 0
-def createnewserver(data, master):
-    server_master = master
+def createnewserver(data, master_ip, master_name):
+    server_master = master_name + "(" + master_ip + ")"
     server_name = data
     server_ip = ""
     server_vlan = ""
@@ -63,9 +63,41 @@ def createnewserver(data, master):
         response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
         response = response.std_out
         response = response.rstrip()
-        response = re.findall("VLAN [0-9]{2,4}", response)
+        response = re.findall("[0-9]{2,4}", response)
         if len(response) != 0:
-            server_vlan = str(response[0])
+            if str(response[0]) == "501":
+                server_vlan = str(response[0])
+                server_vlan = "Devops (" + server_vlan + ")"
+            if str(response[0]) == "502":
+                server_vlan = str(response[0])
+                server_vlan = "PS01 (" + server_vlan + ")"
+            if str(response[0]) == "503":
+                server_vlan = str(response[0])
+                server_vlan = "PS02 (" + server_vlan + ")"
+            if str(response[0]) == "504":
+                server_vlan = str(response[0])
+                server_vlan = "PS03-04 (" + server_vlan + ")"
+            if str(response[0]) == "505":
+                server_vlan = str(response[0])
+                server_vlan = "TrDoc (" + server_vlan + ")"
+            if str(response[0]) == "506":
+                server_vlan = str(response[0])
+                server_vlan = "Support (" + server_vlan + ")"
+            if str(response[0]) == "507":
+                server_vlan = str(response[0])
+                server_vlan = "Alpha (" + server_vlan + ")"
+            if str(response[0]) == "508":
+                server_vlan = str(response[0])
+                server_vlan = "Devleopment (" + server_vlan + ")"
+            if str(response[0]) == "509":
+                server_vlan = str(response[0])
+                server_vlan = "QA (" + server_vlan + ")"
+            if str(response[0]) == "510":
+                server_vlan = str(response[0])
+                server_vlan = "Sales (" + server_vlan + ")"
+            if str(response[0]) == "500":
+                server_vlan = str(response[0])
+                server_vlan = "IT (" + server_vlan + ")"
             print (server_vlan)
     # server_domain
     response = ""
@@ -123,7 +155,7 @@ def createnewserver(data, master):
     mycursor.close()
 
 # Get info of the servers ##
-def windowsinfo(master_ip):
+def windowsinfo(master_ip, master_name):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(master_ip, auth=(Huser, Hpass))
@@ -145,9 +177,9 @@ def windowsinfo(master_ip):
             updatetime(myresult)
         else:
             print ("Create new Data -------- " + vm_names)
-            createnewserver(vm_names,master_ip)
+            createnewserver(vm_names,master_ip,master_name)
     mycursor.close()
     # vm_count = int(vm_count)-1
     # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
     # print (vm_name)
-windowsinfo("192.168.100.205")
+windowsinfo("192.168.100.205", "PHOBOS")
