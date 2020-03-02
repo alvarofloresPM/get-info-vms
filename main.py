@@ -85,10 +85,10 @@ def createnewserver(data, master):
     response = response.std_out
     print (response)
     #response = response.rstrip()
-    response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
+    response = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
     print (response)
     if response is None:
-        response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2})", response)
+        response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         print (response)
         server_ram_d = ""
         server_ram_h = str(response[0])
