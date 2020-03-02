@@ -83,17 +83,19 @@ def createnewserver(data, master):
     response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
     response = response.std_out
     response = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
+    print ("uno " + response)
     if len(response) != 0:
         response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
-        server_ram_d = ""
-        server_ram_h = str(response[0][0])
-        server_ram_m = str(response[0][1])
+        print ("dos " + response)
+        server_uptime_d = ""
+        server_uptime_h = str(response[0][0])
+        server_uptime_m = str(response[0][1])
     else:
-        server_ram_d = str(response[0][0])
-        server_ram_h = str(response[0][1])
-        server_ram_m = str(response[0][2])
-    server_uptime = server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos "
-    print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
+        server_uptime_d = str(response[0][0])
+        server_uptime_h = str(response[0][1])
+        server_uptime_m = str(response[0][2])
+    server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
+    print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
     
     # Insert data to the database
     mycursor = mydb.cursor()
