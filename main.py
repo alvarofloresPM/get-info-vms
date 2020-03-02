@@ -82,8 +82,9 @@ def createnewserver(data, master):
         print (server_ram)
     # server_uptime
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    print (response)
     response = response.std_out
-    response = response.rstrip()
+    #response = response.rstrip()
     response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
     if response is None:
         response = re.findall(" ([0-9]{1,2}.?.?.?):([0-9]{1,2}):([0-9]{1,2})", response)
