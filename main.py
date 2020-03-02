@@ -56,8 +56,12 @@ def createnewserver(data, master):
     # server_domain
     if server_ip != "":
         nmScan.scan(server_ip, '21-443')
-        response = str(nmScan[server_ip].hostname())
-        response = response.rstrip()
+        try:
+            response = str(nmScan[server_ip].hostname())
+            response = response.rstrip()
+        except KeyError as exkey:
+            print("[!] Cannot scan host!: " + server_ip)
+        print(type(response))
         print (response)
         if len(response) != 0:
             server_domain = response
