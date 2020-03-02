@@ -91,12 +91,12 @@ def createnewserver(data, master):
         response = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         print (response)
         server_ram_d = ""
-        server_ram_h = str(response[0])
-        server_ram_m = str(response[1])
+        server_ram_h = str(response[0][0])
+        server_ram_m = str(response[0][1])
     else:
-        server_ram_d = str(response[0])
-        server_ram_h = str(response[1])
-        server_ram_m = str(response[2])
+        server_ram_d = str(response[0][0])
+        server_ram_h = str(response[0][1])
+        server_ram_m = str(response[0][2])
     print (server_ram_d + " dias " + server_ram_h + " horas " + server_ram_m +" minutos ")
 
     return 0
