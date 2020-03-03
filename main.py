@@ -49,6 +49,9 @@ def updateinfoserver(data, master_ip):
 
     # server_uptime
     response = ""
+    server_uptime_d = ""
+    server_uptime_h = ""
+    server_uptime_m = ""
     if server_state != "Off":
         response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
         response = response.std_out
