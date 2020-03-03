@@ -219,12 +219,12 @@ def itwasdeleted(master_ip, master_name):
     for x in myresult:
         print(str(x[0]))
         try:
-            vm_name = s.run_ps("Get-VM -Name " + str(x) )
+            vm_name = s.run_ps("Get-VM -Name " + str(x[0]) )
             vm_names = vm_name.std_out
             vm_names = vm_names.rstrip()
             print (vm_names)
         except:
-            print("Posiblemente borrado: " + str(x))
+            print("Posiblemente borrado: " + str(x[0]))
 
     mycursor.close()
 
