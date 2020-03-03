@@ -66,7 +66,7 @@ def updateinfoserver(data, master_ip):
         print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
     else:
         server_uptime = ""
-    # Insert data to the database
+    # Update data to the database
     mycursor = mydb.cursor()
     sql = "UPDATE server SET server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
     val = (server_state, server_ram, server_uptime, server_name)
@@ -212,6 +212,7 @@ def itwasdeleted(master_ip, master_name):
     Hpass = os.getenv('HVpass')
     s = winrm.Session(master_ip, auth=(Huser, Hpass))
     mycursor = mydb.cursor()
+    master_name_f = master_name
     master_name = master_name + "(" + master_ip + ")"
     sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "' LIMIT 10"
     mycursor.execute(sql)
@@ -222,10 +223,16 @@ def itwasdeleted(master_ip, master_name):
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
         if vm_names == "":
+            mycursor2 = mydb.cursor()
+            sql = "UPDATE server SET server_delete = %s WHERE server_name = %s "
+            val = ("delete", str(x[0]))
+            mycursor2.execute(sql, val)
+            mydb.commit()
+            print(mycursor2.rowcount, "record updated.")
+            mycursor2.close()
             print("Posiblemente borrado: " + str(x[0]))
-
     mycursor.close()
-
+    
 # Get info of the servers ##
 def windowsinfo(master_ip, master_name):
     Huser = os.getenv('HVuser')
