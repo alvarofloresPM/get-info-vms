@@ -22,7 +22,6 @@ def updateinfoserver(data, master_ip):
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(master_ip, auth=(Huser, Hpass))
-    nmScan = nmap.PortScanner()
 
     # server_state
     response = ""
@@ -208,6 +207,27 @@ def createnewserver(data, master_ip, master_name):
     print(mycursor.rowcount, "record inserted.")
     mycursor.close()
 
+def itwasdeleted(master_ip, master_name):
+    Huser = os.getenv('HVuser')
+    Hpass = os.getenv('HVpass')
+    s = winrm.Session(master_ip, auth=(Huser, Hpass))
+    mycursor = mydb.cursor()
+    master_name = master_name + "(" + master_ip + ")"
+    sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "'"
+    mycursor.execute(sql)
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(x)
+        try:
+            vm_name = s.run_ps("Get-VM -Name " + x )
+            vm_names = vm_name.std_out
+            vm_names = vm_names.rstrip()
+            print (vm_names)
+        except:
+            print("Posiblemente borrado: " + x)
+
+    mycursor.close()
+
 # Get info of the servers ##
 def windowsinfo(master_ip, master_name):
     Huser = os.getenv('HVuser')
@@ -231,7 +251,8 @@ def windowsinfo(master_ip, master_name):
             print ("Create new Data -------- " + vm_names)
             createnewserver(vm_names, master_ip, master_name)
     mycursor.close()
-    # vm_count = int(vm_count)-1
-    # vm_name = s.run_ps('Get-VM | Select -ExpandProperty Name | Select-Object -Index ('+ vm_count + ')' )
-    # print (vm_name)
-windowsinfo("192.168.100.205","PHOBOS")
+
+# MAIN section
+#windowsinfo("192.168.100.205","PHOBOS")
+
+itwasdeleted()
