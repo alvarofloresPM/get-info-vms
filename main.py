@@ -225,7 +225,7 @@ def itwasdeleted(master_ip, master_name):
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     for x in myresult:
-        vm_name = s.run_ps("Get-VM -Name " + str(x[0]) )
+        vm_name = s.run_ps("Get-VM -Name '" + str(x[0]) + "'" )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
         if vm_names == "":
@@ -271,7 +271,7 @@ windowsinfo("192.168.100.200","HYPNOS")
 # windowsinfo("192.168.100.205","PHOBOS")
 # windowsinfo("192.168.100.206","OPTIMUS")
 
-itwasdeleted("192.168.100.200","HYPNOS")
+#itwasdeleted("192.168.100.200","HYPNOS")
 # itwasdeleted("192.168.100.201","THANATOS")
 # itwasdeleted("192.168.100.202","ULTRAMAGNUS")
 # itwasdeleted("192.168.100.205","PHOBOS")
