@@ -255,4 +255,4 @@ def windowsinfo(master_ip, master_name):
 # MAIN section
 #windowsinfo("192.168.100.205","PHOBOS")
 
-itwasdeleted()
+itwasdeleted("192.168.100.205","PHOBOS")
