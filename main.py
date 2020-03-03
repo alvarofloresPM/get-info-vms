@@ -226,10 +226,8 @@ def itwasdeleted(master_ip, master_name):
     myresult = mycursor.fetchall()
     for x in myresult:
         vm_name = s.run_ps("Get-VM -Name '" + str(x[0]) + "'")
-        print ("Get-VM -Name '" + str(x[0]) + "'")
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
-        print (vm_names)
         if vm_names == "":
             mycursor2 = mydb.cursor()
             sql = "UPDATE server SET server_delete = %s , server_ip = %s , server_vlan = %s , server_domain = %s , server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
@@ -267,14 +265,14 @@ def windowsinfo(master_ip, master_name):
     mycursor.close()
 
 # MAIN section
-#windowsinfo("192.168.100.200","HYPNOS")
-# windowsinfo("192.168.100.201","THANATOS")
-# windowsinfo("192.168.100.202","ULTRAMAGNUS")
-# windowsinfo("192.168.100.205","PHOBOS")
-# windowsinfo("192.168.100.206","OPTIMUS")
+windowsinfo("192.168.100.200","HYPNOS")
+windowsinfo("192.168.100.201","THANATOS")
+windowsinfo("192.168.100.202","ULTRAMAGNUS")
+windowsinfo("192.168.100.205","PHOBOS")
+windowsinfo("192.168.100.206","OPTIMUS")
 
 itwasdeleted("192.168.100.200","HYPNOS")
-# itwasdeleted("192.168.100.201","THANATOS")
-# itwasdeleted("192.168.100.202","ULTRAMAGNUS")
-# itwasdeleted("192.168.100.205","PHOBOS")
-# itwasdeleted("192.168.100.206","OPTIMUS")
+itwasdeleted("192.168.100.201","THANATOS")
+itwasdeleted("192.168.100.202","ULTRAMAGNUS")
+itwasdeleted("192.168.100.205","PHOBOS")
+itwasdeleted("192.168.100.206","OPTIMUS")
