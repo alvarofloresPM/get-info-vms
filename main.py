@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
   database="servers"
 )
 # functions to update data
-def updateinfoserver(data):
+def updateinfoserver(data, master_ip):
     server_name = data
     server_state = ""
     server_ram = ""
@@ -226,7 +226,7 @@ def windowsinfo(master_ip, master_name):
             myresult = str(myresult[0])
         if ( myresult == vm_names ):
             print ("Update data --------" + myresult )
-            updateinfoserver(vm_names)
+            updateinfoserver(vm_names, master_ip)
         else:
             print ("Create new Data -------- " + vm_names)
             createnewserver(vm_names, master_ip, master_name)
