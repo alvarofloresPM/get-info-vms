@@ -25,19 +25,17 @@ def updateinfoserver(data, master_ip):
 
     # server_state
     response = ""
-    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = s.run_ps("get-vm -Name '" + server_name + "' | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
-    print ("Debug " + str(response))
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
-    print ("Debug2 " + str(response))
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
     # server_ram
     response = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' |  select MemoryAssigned | Format-List")
         response = response.std_out
         response = response.rstrip()
         response = re.findall("[0-9]{1,20}", response)
@@ -55,7 +53,7 @@ def updateinfoserver(data, master_ip):
     server_uptime_h = ""
     server_uptime_m = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' | select Uptime | Format-List")
         response = response.std_out
         response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
         response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
@@ -97,7 +95,7 @@ def createnewserver(data, master_ip, master_name):
 
     # server_state
     response = ""
-    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = s.run_ps("get-vm -Name '" + server_name + "' | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
@@ -109,7 +107,7 @@ def createnewserver(data, master_ip, master_name):
     # server_ip
     response = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
         response = response.std_out
         response = response.rstrip()
         response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
@@ -119,7 +117,7 @@ def createnewserver(data, master_ip, master_name):
     # server_vlan
     response = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " | select -ExpandProperty networkadapters | select SwitchName | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' | select -ExpandProperty networkadapters | select SwitchName | Format-List")
         response = response.std_out
         response = response.rstrip()
         response = re.findall("[0-9]{2,4}", response)
@@ -177,7 +175,7 @@ def createnewserver(data, master_ip, master_name):
     # server_ram
     response = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' |  select MemoryAssigned | Format-List")
         response = response.std_out
         response = response.rstrip()
         response = re.findall("[0-9]{1,20}", response)
@@ -192,7 +190,7 @@ def createnewserver(data, master_ip, master_name):
     server_uptime_h = ""
     server_uptime_m = ""
     if server_state != "Off":
-        response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
+        response = s.run_ps("get-vm -Name '" + server_name + "' | select Uptime | Format-List")
         response = response.std_out
         response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
         response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
