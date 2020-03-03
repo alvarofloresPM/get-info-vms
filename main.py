@@ -116,46 +116,45 @@ def createnewserver(data, master_ip, master_name):
             print (server_ip)
     # server_vlan
     response = ""
-    if server_state != "Off":
-        response = s.run_ps("get-vm -Name '" + server_name + "' | select -ExpandProperty networkadapters | select SwitchName | Format-List")
-        response = response.std_out
-        response = response.rstrip()
-        response = re.findall("[0-9]{2,4}", response)
-        if len(response) != 0:
-            if str(response[0]) == "501":
-                server_vlan = str(response[0])
-                server_vlan = "Devops (" + server_vlan + ")"
-            if str(response[0]) == "502":
-                server_vlan = str(response[0])
-                server_vlan = "PS01 (" + server_vlan + ")"
-            if str(response[0]) == "503":
-                server_vlan = str(response[0])
-                server_vlan = "PS02 (" + server_vlan + ")"
-            if str(response[0]) == "504":
-                server_vlan = str(response[0])
-                server_vlan = "PS03-04 (" + server_vlan + ")"
-            if str(response[0]) == "505":
-                server_vlan = str(response[0])
-                server_vlan = "TrDoc (" + server_vlan + ")"
-            if str(response[0]) == "506":
-                server_vlan = str(response[0])
-                server_vlan = "Support (" + server_vlan + ")"
-            if str(response[0]) == "507":
-                server_vlan = str(response[0])
-                server_vlan = "Alpha (" + server_vlan + ")"
-            if str(response[0]) == "508":
-                server_vlan = str(response[0])
-                server_vlan = "Devleopment (" + server_vlan + ")"
-            if str(response[0]) == "509":
-                server_vlan = str(response[0])
-                server_vlan = "QA (" + server_vlan + ")"
-            if str(response[0]) == "510":
-                server_vlan = str(response[0])
-                server_vlan = "Sales (" + server_vlan + ")"
-            if str(response[0]) == "500":
-                server_vlan = str(response[0])
-                server_vlan = "IT (" + server_vlan + ")"
-            print (server_vlan)
+    response = s.run_ps("get-vm -Name '" + server_name + "' | select -ExpandProperty networkadapters | select SwitchName | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall("[0-9]{2,4}", response)
+    if len(response) != 0:
+        if str(response[0]) == "501":
+            server_vlan = str(response[0])
+            server_vlan = "Devops (" + server_vlan + ")"
+        if str(response[0]) == "502":
+            server_vlan = str(response[0])
+            server_vlan = "PS01 (" + server_vlan + ")"
+        if str(response[0]) == "503":
+            server_vlan = str(response[0])
+            server_vlan = "PS02 (" + server_vlan + ")"
+        if str(response[0]) == "504":
+            server_vlan = str(response[0])
+            server_vlan = "PS03-04 (" + server_vlan + ")"
+        if str(response[0]) == "505":
+            server_vlan = str(response[0])
+            server_vlan = "TrDoc (" + server_vlan + ")"
+        if str(response[0]) == "506":
+            server_vlan = str(response[0])
+            server_vlan = "Support (" + server_vlan + ")"
+        if str(response[0]) == "507":
+            server_vlan = str(response[0])
+            server_vlan = "Alpha (" + server_vlan + ")"
+        if str(response[0]) == "508":
+            server_vlan = str(response[0])
+            server_vlan = "Devleopment (" + server_vlan + ")"
+        if str(response[0]) == "509":
+            server_vlan = str(response[0])
+            server_vlan = "QA (" + server_vlan + ")"
+        if str(response[0]) == "510":
+            server_vlan = str(response[0])
+            server_vlan = "Sales (" + server_vlan + ")"
+        if str(response[0]) == "500":
+            server_vlan = str(response[0])
+            server_vlan = "IT (" + server_vlan + ")"
+        print (server_vlan)
     # server_domain
     response = ""
     if server_state != "Off":
