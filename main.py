@@ -257,6 +257,14 @@ def windowsinfo(master_ip, master_name):
     mycursor.close()
 
 # MAIN section
-#windowsinfo("192.168.100.205","PHOBOS")
+windowsinfo("192.168.100.200","HYPNOS")
+windowsinfo("192.168.100.201","THANATOS")
+windowsinfo("192.168.100.202","ULTRAMAGNUS")
+windowsinfo("192.168.100.205","PHOBOS")
+windowsinfo("192.168.100.206","OPTIMUS")
 
+itwasdeleted("192.168.100.200","HYPNOS")
+itwasdeleted("192.168.100.201","THANATOS")
+itwasdeleted("192.168.100.202","ULTRAMAGNUS")
 itwasdeleted("192.168.100.205","PHOBOS")
+itwasdeleted("192.168.100.206","OPTIMUS")
