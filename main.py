@@ -226,8 +226,10 @@ def itwasdeleted(master_ip, master_name):
     myresult = mycursor.fetchall()
     for x in myresult:
         vm_name = s.run_ps("Get-VM -Name '" + str(x[0]) + "'")
+        print ("Get-VM -Name '" + str(x[0]) + "'")
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
+        print (vm_names)
         if vm_names == "":
             mycursor2 = mydb.cursor()
             sql = "UPDATE server SET server_delete = %s , server_ip = %s , server_vlan = %s , server_domain = %s , server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
