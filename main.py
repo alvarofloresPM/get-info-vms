@@ -96,6 +96,7 @@ def createnewserver(data, master_ip, master_name):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
+    print (response)
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
@@ -243,7 +244,8 @@ def windowsinfo(master_ip, master_name):
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     mycursor = mydb.cursor()
-    for x in range(int(ht)):
+    #for x in range(int(ht)):
+    for x in range(5):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
@@ -261,13 +263,13 @@ def windowsinfo(master_ip, master_name):
 
 # MAIN section
 windowsinfo("192.168.100.200","HYPNOS")
-windowsinfo("192.168.100.201","THANATOS")
-windowsinfo("192.168.100.202","ULTRAMAGNUS")
-windowsinfo("192.168.100.205","PHOBOS")
-windowsinfo("192.168.100.206","OPTIMUS")
+# windowsinfo("192.168.100.201","THANATOS")
+# windowsinfo("192.168.100.202","ULTRAMAGNUS")
+# windowsinfo("192.168.100.205","PHOBOS")
+# windowsinfo("192.168.100.206","OPTIMUS")
 
 itwasdeleted("192.168.100.200","HYPNOS")
-itwasdeleted("192.168.100.201","THANATOS")
-itwasdeleted("192.168.100.202","ULTRAMAGNUS")
-itwasdeleted("192.168.100.205","PHOBOS")
-itwasdeleted("192.168.100.206","OPTIMUS")
+# itwasdeleted("192.168.100.201","THANATOS")
+# itwasdeleted("192.168.100.202","ULTRAMAGNUS")
+# itwasdeleted("192.168.100.205","PHOBOS")
+# itwasdeleted("192.168.100.206","OPTIMUS")
