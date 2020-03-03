@@ -14,15 +14,69 @@ mydb = mysql.connector.connect(
   database="servers"
 )
 # functions to update data
-def updateram(data):
-    server_ram = ""
-    return 0
-def updatestatus(data):
+def updateinfoserver(data):
+    server_name = data
     server_state = ""
-    return 0
-def updatetime(data):
+    server_ram = ""
     server_uptime = ""
-    return 0
+    Huser = os.getenv('HVuser')
+    Hpass = os.getenv('HVpass')
+    s = winrm.Session(master_ip, auth=(Huser, Hpass))
+    nmScan = nmap.PortScanner()
+
+    # server_state
+    response = ""
+    response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
+    response = response.std_out
+    response = response.rstrip()
+    response = re.findall("State : ([a-zA-Z]{1,10})", response)
+    if len(response) != 0:
+        server_state = str(response[0])
+        print (server_state)
+    # server_ram
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " |  select MemoryAssigned | Format-List")
+        response = response.std_out
+        response = response.rstrip()
+        response = re.findall("[0-9]{1,20}", response)
+        if len(response) != 0:
+            server_ram = str(response[0])
+            server_ram = int(server_ram)/1000000
+            server_ram = str(server_ram) + " MB"
+            print (server_ram)
+    else:
+        server_ram = ""
+
+    # server_uptime
+    response = ""
+    if server_state != "Off":
+        response = s.run_ps("get-vm -Name " + server_name + " | select Uptime | Format-List")
+        response = response.std_out
+        response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
+        response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
+        if len(response2) != 0:
+            server_uptime_d = ""
+            server_uptime_h = str(response2[0][0])
+            server_uptime_m = str(response2[0][1])
+        if len(response1) != 0:
+            server_uptime_d = str(response1[0][0])
+            server_uptime_h = str(response1[0][1])
+            server_uptime_m = str(response1[0][2])
+        server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
+        print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
+    else:
+        server_uptime = ""
+    # Insert data to the database
+    mycursor = mydb.cursor()
+    sql = "UPDATE server SET server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
+    val = (server_state, server_ram, server_uptime, server_name)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record updated.")
+    mycursor.close()
+
+
 def createnewserver(data, master_ip, master_name):
     server_master = master_name + "(" + master_ip + ")"
     server_name = data
@@ -172,9 +226,7 @@ def windowsinfo(master_ip, master_name):
             myresult = str(myresult[0])
         if ( myresult == vm_names ):
             print ("Update data --------" + myresult )
-            updateram(myresult)
-            updatestatus(myresult)
-            updatetime(myresult)
+            updateinfoserver(vm_names)
         else:
             print ("Create new Data -------- " + vm_names)
             createnewserver(vm_names, master_ip, master_name)
