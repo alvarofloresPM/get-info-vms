@@ -165,7 +165,6 @@ def createnewserver(data, master_ip, master_name):
                 response = response.rstrip()
             except KeyError as exkey:
                 print("[!] Cannot scan host!: " + server_ip)
-            print(type(response))
             print (str(response))
             if len(response) != 0:
                 server_domain = str(response)
