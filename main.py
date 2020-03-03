@@ -217,7 +217,7 @@ def itwasdeleted(master_ip, master_name):
     mycursor = mydb.cursor()
     master_name_f = master_name
     master_name = master_name + "(" + master_ip + ")"
-    sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "' LIMIT 10"
+    sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "'"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     for x in myresult:
