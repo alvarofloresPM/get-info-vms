@@ -213,16 +213,14 @@ def itwasdeleted(master_ip, master_name):
     s = winrm.Session(master_ip, auth=(Huser, Hpass))
     mycursor = mydb.cursor()
     master_name = master_name + "(" + master_ip + ")"
-    sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "' LIMIT 1"
+    sql = "SELECT server_name FROM server WHERE server_master = '" + master_name + "' LIMIT 10"
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     for x in myresult:
         print(str(x[0]))
         vm_name = s.run_ps("Get-VM -Name " + str(x[0]) )
-        print (vm_name)
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
-        print (vm_names)
         if vm_names == "":
             print("Posiblemente borrado: " + str(x[0]))
 
