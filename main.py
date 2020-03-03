@@ -28,10 +28,12 @@ def updateinfoserver(data, master_ip):
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
+    print ("Debug " + response)
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
+    print ("Debug2 " + response)
     if len(response) != 0:
         server_state = str(response[0])
-        print ("Estado " + server_state)
+        print (server_state)
     # server_ram
     response = ""
     if server_state != "Off":
