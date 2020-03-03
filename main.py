@@ -28,9 +28,9 @@ def updateinfoserver(data, master_ip):
     response = s.run_ps("get-vm -Name " + server_name + " | select state | Format-List")
     response = response.std_out
     response = response.rstrip()
-    print ("Debug " + response)
+    print ("Debug " + str(response))
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
-    print ("Debug2 " + response)
+    print ("Debug2 " + str(response))
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
