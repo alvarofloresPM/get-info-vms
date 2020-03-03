@@ -58,7 +58,7 @@ def updateinfoserver(data, master_ip):
         response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
         response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         if len(response2) != 0:
-            server_uptime_d = ""
+            server_uptime_d = "0"
             server_uptime_h = str(response2[0][0])
             server_uptime_m = str(response2[0][1])
         if len(response1) != 0:
@@ -195,7 +195,7 @@ def createnewserver(data, master_ip, master_name):
         response1 = re.findall("([0-9]{1,4})\.([0-9]{2}):([0-9]{1,2}):([0-9]{1,2})", response)
         response2 = re.findall(" ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})", response)
         if len(response2) != 0:
-            server_uptime_d = ""
+            server_uptime_d = "0"
             server_uptime_h = str(response2[0][0])
             server_uptime_m = str(response2[0][1])
         if len(response1) != 0:
