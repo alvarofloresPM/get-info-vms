@@ -218,21 +218,20 @@ def itwasdeleted(master_ip, master_name):
     mycursor.execute(sql)
     myresult = mycursor.fetchall()
     for x in myresult:
-        print(str(x[0]))
         vm_name = s.run_ps("Get-VM -Name " + str(x[0]) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
         if vm_names == "":
             mycursor2 = mydb.cursor()
-            sql = "UPDATE server SET server_delete = %s WHERE server_name = %s "
-            val = ("delete", str(x[0]))
+            sql = "UPDATE server SET server_delete = %s , server_ip = %s , server_vlan = %s , server_domain = %s , server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
+            val = ("delete", "", "", "", "", "", "", str(x[0]))
             mycursor2.execute(sql, val)
             mydb.commit()
             print(mycursor2.rowcount, "record updated.")
             mycursor2.close()
             print("Posiblemente borrado: " + str(x[0]))
     mycursor.close()
-    
+
 # Get info of the servers ##
 def windowsinfo(master_ip, master_name):
     Huser = os.getenv('HVuser')
