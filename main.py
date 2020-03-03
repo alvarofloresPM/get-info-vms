@@ -31,7 +31,7 @@ def updateinfoserver(data, master_ip):
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
     if len(response) != 0:
         server_state = str(response[0])
-        print (server_state)
+        print ("Estado " + server_state)
     # server_ram
     response = ""
     if server_state != "Off":
