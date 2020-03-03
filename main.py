@@ -219,7 +219,7 @@ def itwasdeleted(master_ip, master_name):
     for x in myresult:
         print(str(x[0]))
         vm_name = s.run_ps("Get-VM -Name " + str(x[0]) )
-        print (vm_names)
+        print (vm_name)
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
         print (vm_names)
