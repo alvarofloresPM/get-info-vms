@@ -99,7 +99,6 @@ def createnewserver(data, master_ip, master_name):
     response = response.std_out
     response = response.rstrip()
     response = re.findall("State : ([a-zA-Z]{1,10})", response)
-    print (response)
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
@@ -165,7 +164,6 @@ def createnewserver(data, master_ip, master_name):
                 response = response.rstrip()
             except KeyError as exkey:
                 print("[!] Cannot scan host!: " + server_ip)
-            print (str(response))
             if len(response) != 0:
                 server_domain = str(response)
                 print (server_domain)
