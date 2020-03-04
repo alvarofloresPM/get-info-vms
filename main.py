@@ -289,8 +289,14 @@ def windowsinfomaster(master_ip, master_name):
     hs = s.run_ps('(Get-VM | where {$_.State -eq "Saved"}).count').std_out
     hs = hs.rstrip()
     master_server_s = hs
-
-    print ( master_ip + " " + master_name + " " + master_ram + " " + master_space + " " + master_server_t + " " + master_server_r + " " + master_server_o + " " + master_server_s)
+    
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO master (master_ip, master_name, master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    val = (master_ip, master_name, master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    print(mycursor.rowcount, "record inserted.")
+    mycursor.close()
 
 
 
@@ -308,3 +314,7 @@ def windowsinfomaster(master_ip, master_name):
 # itwasdeleted("192.168.100.206","OPTIMUS")
 
 windowsinfomaster("192.168.100.200","HYPNOS")
+windowsinfomaster("192.168.100.201","THANATOS")
+windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
+windowsinfomaster("192.168.100.205","PHOBOS")
+windowsinfomaster("192.168.100.206","OPTIMUS")
