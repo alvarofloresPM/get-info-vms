@@ -277,27 +277,18 @@ def windowsinfomaster(master_ip, master_name):
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
     print (d)
-    disk_c = re.findall('C:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    disk_d = re.findall('D:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    disk_e = re.findall('E:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    disk_z = re.findall('Z:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
+    disk_c = re.findall('Libre \(GB\) : ([0-9.]{1,9})', d)
     print (type(disk_c))
     print (disk_c)
     if len(disk_c) != 0:
-        disk_cr = str(disk_c[0][0])
+        disk_cr = str(disk_c[0])
+        disk_dr = str(disk_c[1])
+        disk_er = str(disk_c[2])
+        disk_zr = str(disk_c[3])
     else:
-     disk_cr = "-"
-    if len(disk_d) != 0:
-        disk_dr = str(disk_d[0][1])
-    else:
+        disk_cr = "-"
         disk_dr = "-"
-    if len(disk_e) != 0:
-        disk_er = str(disk_e[0][0])
-    else:
         disk_er = "-"
-    if len(disk_z) != 0:
-        disk_zr = str(disk_z[0][0])
-    else:
         disk_zr = "-"
 
     master_space = str(d)
@@ -337,8 +328,8 @@ def windowsinfomaster(master_ip, master_name):
 # itwasdeleted("192.168.100.205","PHOBOS")
 # itwasdeleted("192.168.100.206","OPTIMUS")
 
-windowsinfomaster("192.168.100.200","HYPNOS")
+# windowsinfomaster("192.168.100.200","HYPNOS")
 # windowsinfomaster("192.168.100.201","THANATOS")
 # windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
 # windowsinfomaster("192.168.100.205","PHOBOS")
-# windowsinfomaster("192.168.100.206","OPTIMUS")
+ windowsinfomaster("192.168.100.206","OPTIMUS")
