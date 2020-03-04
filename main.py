@@ -280,12 +280,14 @@ def windowsinfomaster(master_ip, master_name):
     disk_d = re.findall("D:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
     disk_e = re.findall("E:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
     disk_z = re.findall("Z:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    print (type(disk_c))
+    print (disk_c)
     if len(disk_c) != 0:
         disk_cr = str(disk_c[0][0])
     else:
      disk_cr = "-"
     if len(disk_d) != 0:
-        disk_dr = str(disk_d[0][0])
+        disk_dr = str(disk_d[0][1])
     else:
         disk_dr = "-"
     if len(disk_e) != 0:
