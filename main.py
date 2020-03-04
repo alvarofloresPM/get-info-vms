@@ -80,7 +80,7 @@ def updateinfoserver(data, master_ip):
 
 
 def createnewserver(data, master_ip, master_name):
-    server_master = master_name + "(" + master_ip + ")"
+    server_master = master_name
     server_name = data
     server_ip = ""
     server_vlan = ""
@@ -198,8 +198,8 @@ def createnewserver(data, master_ip, master_name):
             server_uptime_d = str(response1[0][0])
             server_uptime_h = str(response1[0][1])
             server_uptime_m = str(response1[0][2])
-        server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
-        print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
+        server_uptime = server_uptime_d + "d " + server_uptime_h + "h " + server_uptime_m +"m "
+        print (server_uptime_d + "d " + server_uptime_h + "h " + server_uptime_m +"m ")
     
     # Insert data to the database
     mycursor = mydb.cursor()
@@ -274,8 +274,29 @@ def windowsinfomaster(master_ip, master_name):
     m = s.run_ps('(Get-Counter -Counter "\Memory\Available MBytes").CounterSamples[0].CookedValue').std_out
     m = m.rstrip()
     master_ram = str(m)
-    d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}}, @{n="% Libre";e={"{0:n2}" -f ($_.freespace/$_.size*100)}} | Format-List').std_out
+    d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
+    disk_c = re.findall("C:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    disk_d = re.findall("D:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    disk_e = re.findall("E:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    disk_z = re.findall("Z:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    if len(disk_c) != 0:
+        disk_cr = str(disk_c[0][0])
+    else:
+     disk_cr = "-"
+    if len(disk_d) != 0:
+        disk_dr = str(disk_d[0][0])
+    else:
+        disk_dr = "-"
+    if len(disk_e) != 0:
+        disk_er = str(disk_e[0][0])
+    else:
+        disk_er = "-"
+    if len(disk_z) != 0:
+        disk_zr = str(disk_z[0][0])
+    else:
+        disk_zr = "-"
+
     master_space = str(d)
     ht = s.run_ps('(Get-VM).count').std_out
     ht = ht.rstrip()
@@ -291,8 +312,8 @@ def windowsinfomaster(master_ip, master_name):
     master_server_s = str(hs)
     
     mycursor = mydb.cursor()
-    sql = "UPDATE master SET master_ram = %s, master_space = %s, master_servers_t = %s, master_servers_r = %s, master_servers_o = %s, master_servers_s = %s WHERE master_ip = %s"
-    val = (master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s, master_ip)
+    sql = "UPDATE master SET master_ram = %s, master_disk_c = %s, master_disk_d = %s, master_disk_e = %s, master_disk_z = %s, master_servers_t = %s, master_servers_r = %s, master_servers_o = %s, master_servers_s = %s WHERE master_ip = %s"
+    val = (master_ram, disk_cr, disk_dr, disk_er, disk_zr, master_server_t, master_server_r, master_server_o, master_server_s, master_ip)
     mycursor.execute(sql, val)
     mydb.commit()
     print(mycursor.rowcount, "record update.")
