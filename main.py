@@ -291,7 +291,7 @@ def windowsinfomaster(master_ip, master_name):
     master_server_s = str(hs)
     
     mycursor = mydb.cursor()
-    sql = "UPDATE server SET master_ram = %s, master_space = %s, master_servers_t = %s, master_servers_r = %s, master_servers_o = %s, master_servers_s = %s WHERE master_ip = %s"
+    sql = "UPDATE master SET master_ram = %s, master_space = %s, master_servers_t = %s, master_servers_r = %s, master_servers_o = %s, master_servers_s = %s WHERE master_ip = %s"
     val = (master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s, master_ip)
     mycursor.execute(sql, val)
     mydb.commit()
