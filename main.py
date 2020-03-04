@@ -259,15 +259,52 @@ def windowsinfo(master_ip, master_name):
             createnewserver(vm_names, master_ip, master_name)
     mycursor.close()
 
-# MAIN section
-windowsinfo("192.168.100.200","HYPNOS")
-windowsinfo("192.168.100.201","THANATOS")
-windowsinfo("192.168.100.202","ULTRAMAGNUS")
-windowsinfo("192.168.100.205","PHOBOS")
-windowsinfo("192.168.100.206","OPTIMUS")
+def windowsinfomaster(master_ip, master_name):
+    master_ram = ""
+    master_space = ""
+    master_server_t = ""
+    master_server_r = ""
+    master_server_o = ""
+    master_server_s = ""
 
-itwasdeleted("192.168.100.200","HYPNOS")
-itwasdeleted("192.168.100.201","THANATOS")
-itwasdeleted("192.168.100.202","ULTRAMAGNUS")
-itwasdeleted("192.168.100.205","PHOBOS")
-itwasdeleted("192.168.100.206","OPTIMUS")
+    Huser = os.getenv('HVuser')
+    Hpass = os.getenv('HVpass')
+    s = winrm.Session(master_ip, auth=(Huser, Hpass))
+
+    m = s.run_ps('(Get-Counter -Counter "\Memory\Available MBytes").CounterSamples[0].CookedValue').std_out
+    m = m.rstrip()
+    master_ram = m
+    d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}}, @{n="% Libre";e={"{0:n2}" -f ($_.freespace/$_.size*100)}} | Format-List')
+    d = d.rstrip()
+    master_space = d
+    ht = s.run_ps('(Get-VM).count').std_out
+    ht = ht.rstrip()
+    master_server_t = ht
+    hr = s.run_ps('(Get-VM | where {$_.State -eq "Running"}).count').std_out
+    hr = hr.rstrip()
+    master_server_r = hr
+    ho = s.run_ps('(Get-VM | where {$_.State -eq "Off"}).count').std_out
+    ho = ho.rstrip()
+    master_server_o = ho
+    hs = s.run_ps('(Get-VM | where {$_.State -eq "Saved"}).count').std_out
+    hs = hs.rstrip()
+    master_server_s = hs
+
+    print ( master_ip + " " + master_name + " " + master_ram + " " + master_space + " " + master_server_t + " " + master_server_r + " " + master_server_o + " " + master_server_s)
+
+
+
+# MAIN section
+# windowsinfo("192.168.100.200","HYPNOS")
+# windowsinfo("192.168.100.201","THANATOS")
+# windowsinfo("192.168.100.202","ULTRAMAGNUS")
+# windowsinfo("192.168.100.205","PHOBOS")
+# windowsinfo("192.168.100.206","OPTIMUS")
+
+# itwasdeleted("192.168.100.200","HYPNOS")
+# itwasdeleted("192.168.100.201","THANATOS")
+# itwasdeleted("192.168.100.202","ULTRAMAGNUS")
+# itwasdeleted("192.168.100.205","PHOBOS")
+# itwasdeleted("192.168.100.206","OPTIMUS")
+
+windowsinfomaster("192.168.100.200","HYPNOS")
