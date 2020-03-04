@@ -295,7 +295,7 @@ def windowsinfomaster(master_ip, master_name):
     val = (master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s, master_ip)
     mycursor.execute(sql, val)
     mydb.commit()
-    print(mycursor.rowcount, "record inserted.")
+    print(mycursor.rowcount, "record update.")
     mycursor.close()
 
 
