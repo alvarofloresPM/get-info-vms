@@ -281,7 +281,8 @@ def windowsinfomaster(master_ip, master_name):
     disk_d = re.findall('D:\nLibre \(GB\) : ([0-9.]{1,9})', d)
     disk_e = re.findall('E:\nLibre \(GB\) : ([0-9.]{1,9})', d)
     disk_z = re.findall('Z:\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    
+    print (type(disk_c))
+    print (disk_c)
     if len(disk_c) != 0:
         disk_cr = str(disk_c[0][0])
     else:
