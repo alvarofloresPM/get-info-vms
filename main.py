@@ -332,4 +332,4 @@ def windowsinfomaster(master_ip, master_name):
 # windowsinfomaster("192.168.100.201","THANATOS")
 # windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
 # windowsinfomaster("192.168.100.205","PHOBOS")
- windowsinfomaster("192.168.100.206","OPTIMUS")
+windowsinfomaster("192.168.100.206","OPTIMUS")
