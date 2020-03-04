@@ -274,7 +274,7 @@ def windowsinfomaster(master_ip, master_name):
     m = s.run_ps('(Get-Counter -Counter "\Memory\Available MBytes").CounterSamples[0].CookedValue').std_out
     m = m.rstrip()
     master_ram = m
-    d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}}, @{n="% Libre";e={"{0:n2}" -f ($_.freespace/$_.size*100)}} | Format-List')
+    d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}}, @{n="% Libre";e={"{0:n2}" -f ($_.freespace/$_.size*100)}} | Format-List').std_out
     d = d.rstrip()
     master_space = d
     ht = s.run_ps('(Get-VM).count').std_out
