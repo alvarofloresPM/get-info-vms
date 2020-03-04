@@ -291,7 +291,7 @@ def windowsinfomaster(master_ip, master_name):
     master_server_s = str(hs)
     
     mycursor = mydb.cursor()
-    sql = "INSERT INTO master (master_ip, master_name, master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO master (master_ip, master_name, master_ram, master_space, master_servers_t, master_servers_r, master_servers_o, master_servers_s) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     val = (master_ip, master_name, master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s)
     mycursor.execute(sql, val)
     mydb.commit()
