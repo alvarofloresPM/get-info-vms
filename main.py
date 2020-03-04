@@ -276,7 +276,7 @@ def windowsinfomaster(master_ip, master_name):
     master_ram = str(m)
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
-    disk_c = re.findall("C:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
+    disk_c = re.findall('C:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})', d)
     disk_d = re.findall("D:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
     disk_e = re.findall("E:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
     disk_z = re.findall("Z:\nLibre \(GB\) : ([0-9]{1,9}\.[0-9]{1,9})", d)
