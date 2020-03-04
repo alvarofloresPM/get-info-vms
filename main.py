@@ -273,22 +273,22 @@ def windowsinfomaster(master_ip, master_name):
 
     m = s.run_ps('(Get-Counter -Counter "\Memory\Available MBytes").CounterSamples[0].CookedValue').std_out
     m = m.rstrip()
-    master_ram = m
+    master_ram = str(m)
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}}, @{n="% Libre";e={"{0:n2}" -f ($_.freespace/$_.size*100)}} | Format-List').std_out
     d = d.rstrip()
-    master_space = d
+    master_space = str(d)
     ht = s.run_ps('(Get-VM).count').std_out
     ht = ht.rstrip()
-    master_server_t = ht
+    master_server_t = str(ht)
     hr = s.run_ps('(Get-VM | where {$_.State -eq "Running"}).count').std_out
     hr = hr.rstrip()
-    master_server_r = hr
+    master_server_r = str(hr)
     ho = s.run_ps('(Get-VM | where {$_.State -eq "Off"}).count').std_out
     ho = ho.rstrip()
-    master_server_o = ho
+    master_server_o = str(ho)
     hs = s.run_ps('(Get-VM | where {$_.State -eq "Saved"}).count').std_out
     hs = hs.rstrip()
-    master_server_s = hs
+    master_server_s = str(hs)
     
     mycursor = mydb.cursor()
     sql = "INSERT INTO master (master_ip, master_name, master_ram, master_space, master_server_t, master_server_r, master_server_o, master_server_s) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
