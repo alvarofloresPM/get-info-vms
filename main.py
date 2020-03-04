@@ -280,15 +280,21 @@ def windowsinfomaster(master_ip, master_name):
     disk_c = re.findall('Libre \(GB\) : ([0-9.]{1,9})', d)
     print (type(disk_c))
     print (disk_c)
-    if len(disk_c) != 0:
+    if len(disk_c[0]) != 0:
         disk_cr = str(disk_c[0])
-        disk_dr = str(disk_c[1])
-        disk_er = str(disk_c[2])
-        disk_zr = str(disk_c[3])
     else:
         disk_cr = "-"
+    if len(disk_c[1]) != 0:
+        disk_dr = str(disk_c[1])
+    else:
         disk_dr = "-"
+    if len(disk_c[2]) != 0:
+        disk_er = str(disk_c[2])
+    else:
         disk_er = "-"
+    if len(disk_c[3]) != 0:
+        disk_zr = str(disk_c[3])
+    else:
         disk_zr = "-"
 
     master_space = str(d)
@@ -328,8 +334,8 @@ def windowsinfomaster(master_ip, master_name):
 # itwasdeleted("192.168.100.205","PHOBOS")
 # itwasdeleted("192.168.100.206","OPTIMUS")
 
-# windowsinfomaster("192.168.100.200","HYPNOS")
+windowsinfomaster("192.168.100.200","HYPNOS")
 # windowsinfomaster("192.168.100.201","THANATOS")
 # windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
 # windowsinfomaster("192.168.100.205","PHOBOS")
-windowsinfomaster("192.168.100.206","OPTIMUS")
+# windowsinfomaster("192.168.100.206","OPTIMUS")
