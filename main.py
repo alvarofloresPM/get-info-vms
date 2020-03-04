@@ -277,10 +277,10 @@ def windowsinfomaster(master_ip, master_name):
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n2}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
     print (d)
-    disk_c = re.findall('Libre \(GB\) : ([0-9.]{1,9})', d)
-    disk_d = re.findall('D:\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    disk_e = re.findall('E:\nLibre \(GB\) : ([0-9.]{1,9})', d)
-    disk_z = re.findall('Z:\nLibre \(GB\) : ([0-9.]{1,9})', d)
+    disk_c = re.findall('C:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
+    disk_d = re.findall('D:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
+    disk_e = re.findall('E:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
+    disk_z = re.findall('Z:\\nLibre \(GB\) : ([0-9.]{1,9})', d)
     print (type(disk_c))
     print (disk_c)
     if len(disk_c) != 0:
