@@ -227,7 +227,7 @@ def itwasdeleted(master_ip, master_name):
         if vm_names == "":
             mycursor2 = mydb.cursor()
             sql = "UPDATE server SET server_delete = %s , server_ip = %s , server_vlan = %s , server_domain = %s , server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
-            val = ("deleted", "", "", "", "", "", "", str(x[0]))
+            val = ("D", "", "", "", "", "", "", str(x[0]))
             mycursor2.execute(sql, val)
             mydb.commit()
             print(mycursor2.rowcount, "record updated.")
@@ -279,18 +279,22 @@ def windowsinfomaster(master_ip, master_name):
     disk_c = re.findall('Libre \(GB\) : ([0-9.]{1,9})', d)
     if len(disk_c[0]) != 0:
         disk_cr = str(disk_c[0])
+        disk_cr = disk_cr.replace('.', '')
     else:
         disk_cr = "-"
     try:
         disk_dr = str(disk_c[1])
+        disk_dr = disk_dr.replace('.', '')
     except IndexError:
         disk_dr = "-"
     try:
         disk_er = str(disk_c[2])
+        disk_er = disk_er.replace('.', '')
     except IndexError:
         disk_er = "-"
     try:
         disk_zr = str(disk_c[3])
+        disk_zr = disk_zr.replace('.', '')
     except IndexError:
         disk_zr = "-"
 
