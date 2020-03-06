@@ -6,16 +6,18 @@ import re
 import nmap
 import slackclient
 # slack configuration
-file = open("/tmp/environment.txt", "w")
-file.write("MY_DATA=" + os.getenv('slack_token'))
+from slackclient import SlackClient
 
 # client = slackclient('slack_token')
-
-# response = client.chat_postMessage(
-#     channel='jenkins-local',
-#     text="Hello world!")
-# assert response["ok"]
-# assert response["message"]["text"] == "Hello world!"
+token = os.getenv('slack_token')
+try:
+    client = SlackClient(token)
+    client.api_call(
+        'chat.postMessage',
+        channel="jenkins-local",
+        text="test")
+except SlackClientError as error:
+    print("Couldn't send slack message with exception " + str(error))
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
