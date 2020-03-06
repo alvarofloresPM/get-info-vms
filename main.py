@@ -10,14 +10,12 @@ from slackclient import SlackClient
 
 # client = slackclient('slack_token')
 token = os.getenv('slack_token')
-try:
-    client = SlackClient(token)
-    client.api_call(
-        'chat.postMessage',
-        channel="jenkins-local",
-        text="test")
-except SlackClientError as error:
-    print("Couldn't send slack message with exception " + str(error))
+
+client = SlackClient(token)
+client.api_call(
+    'chat.postMessage',
+    channel="#jenkins-local",
+    text="test")
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
