@@ -366,21 +366,21 @@ def windowsinfomaster(master_ip, master_name):
 
 # MAIN section
 windowsinfo("192.168.100.200","HYPNOS")
-windowsinfo("192.168.100.201","THANATOS")
-windowsinfo("192.168.100.202","ULTRAMAGNUS")
-windowsinfo("192.168.100.205","PHOBOS")
-windowsinfo("192.168.100.206","OPTIMUS")
+# windowsinfo("192.168.100.201","THANATOS")
+# windowsinfo("192.168.100.202","ULTRAMAGNUS")
+# windowsinfo("192.168.100.205","PHOBOS")
+# windowsinfo("192.168.100.206","OPTIMUS")
 
 itwasdeleted("192.168.100.200","HYPNOS")
-itwasdeleted("192.168.100.201","THANATOS")
-itwasdeleted("192.168.100.202","ULTRAMAGNUS")
-itwasdeleted("192.168.100.205","PHOBOS")
-itwasdeleted("192.168.100.206","OPTIMUS")
+# itwasdeleted("192.168.100.201","THANATOS")
+# itwasdeleted("192.168.100.202","ULTRAMAGNUS")
+# itwasdeleted("192.168.100.205","PHOBOS")
+# itwasdeleted("192.168.100.206","OPTIMUS")
 
 windowsinfomaster("192.168.100.200","HYPNOS")
-windowsinfomaster("192.168.100.201","THANATOS")
-windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
-windowsinfomaster("192.168.100.205","PHOBOS")
-windowsinfomaster("192.168.100.206","OPTIMUS")
+# windowsinfomaster("192.168.100.201","THANATOS")
+# windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
+# windowsinfomaster("192.168.100.205","PHOBOS")
+# windowsinfomaster("192.168.100.206","OPTIMUS")
 
 verifyipserver()
