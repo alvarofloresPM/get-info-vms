@@ -38,6 +38,7 @@ def updateinfoserver(data, master_ip):
         mycursor = mydb.cursor()
         mycursor.execute("SELECT server_ip FROM servers.server Where server_name = '" + server_name + "'")
         myresult = mycursor.fetchall()
+        print ("ERROR -------------" + str(myresult))
         if myresult is None:
             response = ""
             response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
@@ -258,7 +259,8 @@ def windowsinfo(master_ip, master_name):
     ht = s.run_ps('(Get-VM).count')
     ht = ht.std_out
     mycursor = mydb.cursor()
-    for x in range(int(ht)):
+    # for x in range(int(ht)):
+    for x in range(int(10)):
         vm_name = s.run_ps("Get-VM | Select -ExpandProperty Name | Select-Object -Index " + str(x) )
         vm_names = vm_name.std_out
         vm_names = vm_names.rstrip()
