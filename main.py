@@ -266,7 +266,20 @@ def verifyipserver():
     if myresult is not None:
         for x in myresult:
             ip_srv = ip_srv + str(x[0]) + "\n"    
-        print (ip_srv)
+    mns = data = string.replace( ip_srv, '\r', '' )
+
+    file = open("/tmp/environment.txt", "w")
+    file.write("MY_DATA=" + mns)
+    file.close()
+
+    prefix = ' '
+    suffix = '\\n \\'
+
+    with open('/tmp/environment.txt', 'r') as src:
+        with open('/tmp/environment2.txt', 'w') as dest:
+           for line in src:
+               dest.write('%s%s%s\n' % (prefix, line.rstrip('\n'), suffix))
+    return -1
 
 def windowsinfomaster(master_ip, master_name):
     master_ram = ""
