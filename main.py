@@ -6,7 +6,7 @@ import re
 import nmap
 import slackclient
 # slack configuration
-client = slack.WebClient(token=os.getenv('slack_token'))
+client = slackclient.WebClient(token=os.getenv('slack_token'))
 
 response = client.chat_postMessage(
     channel='jenkins-local',
