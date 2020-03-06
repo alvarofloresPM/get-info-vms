@@ -266,7 +266,7 @@ def verifyipserver():
     if myresult is not None:
         for x in myresult:
             ip_srv = str(x) + "\n"
-        print (ip_srv)
+            print (ip_srv)
         
 
 def windowsinfomaster(master_ip, master_name):
