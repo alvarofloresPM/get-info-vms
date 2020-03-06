@@ -33,7 +33,12 @@ def updateinfoserver(data, master_ip):
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
-        if server_state == "Running":
+    # server_ip
+    if server_state == "Running":
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT server_ip FROM servers.server Where server_name = '" + server_name + "'")
+        myresult = mycursor.fetchall()
+        if myresult is None:
             response = ""
             response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
             response = response.std_out
