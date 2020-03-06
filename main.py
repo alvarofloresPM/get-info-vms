@@ -19,6 +19,7 @@ def updateinfoserver(data, master_ip):
     server_state = ""
     server_ram = ""
     server_uptime = ""
+    server_ip = ""
     Huser = os.getenv('HVuser')
     Hpass = os.getenv('HVpass')
     s = winrm.Session(master_ip, auth=(Huser, Hpass))
