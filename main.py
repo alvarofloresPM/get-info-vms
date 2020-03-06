@@ -33,7 +33,7 @@ def updateinfoserver(data, master_ip):
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
-    # server_ip
+    # # server_ip
     if server_state == "Running":
         mycursor = mydb.cursor()
         mycursor.execute("SELECT server_ip FROM servers.server Where server_name = '" + server_name + "'")
@@ -48,6 +48,9 @@ def updateinfoserver(data, master_ip):
             if len(response) != 0:
                 server_ip = str(response[0])
                 print (server_ip)
+        else:
+            for x in myresult:
+                server_ip = str(x[0])
     # server_ram
     response = ""
     if server_state != "Off":
