@@ -6,6 +6,7 @@ import re
 import nmap
 import slackclient
 # slack configuration
+print os.getenv('slack_token')
 client = slackclient('slack_token')
 
 response = client.chat_postMessage(
