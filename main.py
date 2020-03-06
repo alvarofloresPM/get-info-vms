@@ -38,6 +38,7 @@ def updateinfoserver(data, master_ip):
         mycursor = mydb.cursor()
         mycursor.execute("SELECT server_ip FROM servers.server Where server_name = '" + server_name + "'")
         myresult = mycursor.fetchall()
+        print ("Error ------------------" + myresult[0])
         if str(myresult[0]) == "(u'',)":
             response = ""
             response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
