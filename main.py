@@ -4,18 +4,6 @@ import string
 import mysql.connector
 import re
 import nmap
-import slackclient
-# slack configuration
-from slackclient import SlackClient
-
-# client = slackclient('slack_token')
-token = os.getenv('slack_token')
-
-client = SlackClient(token)
-client.api_call(
-    'chat.postMessage',
-    channel="#jenkins-local",
-    text="test")
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
@@ -270,6 +258,15 @@ def windowsinfo(master_ip, master_name):
             print ("Create new Data -------- " + vm_names)
             createnewserver(vm_names, master_ip, master_name)
     mycursor.close()
+def verifyipserver():
+    mycursor = mydb.cursor()
+    mycursor.execute('SELECT * FROM servers.server Where server_ip = "" and server_state = "Running"')
+    myresult = mycursor.fetchall()
+    if myresult is not None:
+        for x in myresult:
+            ip_srv = str(x) + "\n"
+        print (ip_srv)
+        
 
 def windowsinfomaster(master_ip, master_name):
     master_ram = ""
@@ -352,3 +349,5 @@ def windowsinfomaster(master_ip, master_name):
 # windowsinfomaster("192.168.100.202","ULTRAMAGNUS")
 # windowsinfomaster("192.168.100.205","PHOBOS")
 # windowsinfomaster("192.168.100.206","OPTIMUS")
+
+verifyipserver()
