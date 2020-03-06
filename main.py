@@ -4,8 +4,7 @@ import string
 import mysql.connector
 import re
 import nmap
-# Global variables
-ip_srv = "None "
+
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
 mydb = mysql.connector.connect(
@@ -260,14 +259,14 @@ def windowsinfo(master_ip, master_name):
             createnewserver(vm_names, master_ip, master_name)
     mycursor.close()
 def verifyipserver():
+    ip_srv ="None"
     mycursor = mydb.cursor()
     mycursor.execute('SELECT server_name FROM servers.server Where server_ip = "" and server_state = "Running"')
     myresult = mycursor.fetchall()
     if myresult is not None:
         for x in myresult:
-            ip_srv = str(x[0])
-            print (ip_srv)
-        
+            ip_srv = str(x[0])    
+        print (ip_srv)
 
 def windowsinfomaster(master_ip, master_name):
     master_ram = ""
