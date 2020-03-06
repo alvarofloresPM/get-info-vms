@@ -7,13 +7,13 @@ import nmap
 import slackclient
 # slack configuration
 print (os.getenv('slack_token'))
-client = slackclient('slack_token')
+# client = slackclient('slack_token')
 
-response = client.chat_postMessage(
-    channel='jenkins-local',
-    text="Hello world!")
-assert response["ok"]
-assert response["message"]["text"] == "Hello world!"
+# response = client.chat_postMessage(
+#     channel='jenkins-local',
+#     text="Hello world!")
+# assert response["ok"]
+# assert response["message"]["text"] == "Hello world!"
 
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
