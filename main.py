@@ -9,7 +9,7 @@ import slack
 client = slack.WebClient(token=os.getenv('slack_token'))
 
 response = client.chat_postMessage(
-    channel='devops-only',
+    channel='jenkins-local',
     text="Hello world!")
 assert response["ok"]
 assert response["message"]["text"] == "Hello world!"
