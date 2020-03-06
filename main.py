@@ -32,6 +32,15 @@ def updateinfoserver(data, master_ip):
     if len(response) != 0:
         server_state = str(response[0])
         print (server_state)
+        if server_state == "Running":
+            response = ""
+            response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
+            response = response.std_out
+            response = response.rstrip()
+            response = re.findall("(10\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})", response)
+            if len(response) != 0:
+                server_ip = str(response[0])
+                print (server_ip)
     # server_ram
     response = ""
     if server_state != "Off":
@@ -71,8 +80,8 @@ def updateinfoserver(data, master_ip):
         server_uptime = ""
     # Update data to the database
     mycursor = mydb.cursor()
-    sql = "UPDATE server SET server_state = %s , server_ram = %s , server_uptime = %s WHERE server_name = %s "
-    val = (server_state, server_ram, server_uptime, server_name)
+    sql = "UPDATE server SET server_state = %s , server_ram = %s , server_uptime = %s , server_ip = %s WHERE server_name = %s "
+    val = (server_state, server_ram, server_uptime, server_ip, server_name)
     mycursor.execute(sql, val)
     mydb.commit()
     print(mycursor.rowcount, "record updated.")
