@@ -4,7 +4,7 @@ import string
 import mysql.connector
 import re
 import nmap
-import slack
+import slackclient
 # slack configuration
 client = slack.WebClient(token=os.getenv('slack_token'))
 
