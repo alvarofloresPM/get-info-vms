@@ -286,7 +286,6 @@ def verifyipserver():
             with open('/tmp/environment2.txt', 'w') as dest:
                for line in src:
                    dest.write('%s%s%s\n' % (prefix, line.rstrip('\n'), suffix))
-        os._exit(1)
 
 def windowsinfomaster(master_ip, master_name):
     master_ram = ""
