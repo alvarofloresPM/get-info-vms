@@ -276,6 +276,7 @@ def verifyipserver():
         
         file = open("/tmp/environment.txt", "w")
         file.write("MY_DATA=" + mns)
+        file.write("MY_STATUS= Failed")
         file.close()
 
         prefix = ' '
