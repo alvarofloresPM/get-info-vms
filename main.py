@@ -265,7 +265,7 @@ def verifyipserver():
     myresult = mycursor.fetchall()
     if myresult is not None:
         for x in myresult:
-            ip_srv = str(x[0]) + "\n"
+            ip_srv = str(x[0])
             print (ip_srv)
         
 
