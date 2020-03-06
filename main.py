@@ -5,7 +5,7 @@ import mysql.connector
 import re
 import nmap
 # Global variables
-ip_srv = "None"
+ip_srv = "None "
 # Mysql connection ##
 pass_db = os.getenv('db_pass')
 mydb = mysql.connector.connect(
