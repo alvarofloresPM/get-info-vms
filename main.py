@@ -261,11 +261,11 @@ def windowsinfo(master_ip, master_name):
     mycursor.close()
 def verifyipserver():
     mycursor = mydb.cursor()
-    mycursor.execute('SELECT * FROM servers.server Where server_ip = "" and server_state = "Running"')
+    mycursor.execute('SELECT server_name FROM servers.server Where server_ip = "" and server_state = "Running"')
     myresult = mycursor.fetchall()
     if myresult is not None:
         for x in myresult:
-            ip_srv = str(x) + "\n"
+            ip_srv = str(x[0]) + "\n"
             print (ip_srv)
         
 
