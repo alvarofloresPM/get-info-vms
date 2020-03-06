@@ -265,16 +265,22 @@ def verifyipserver():
     myresult = mycursor.fetchall()
     if myresult is not None:
         for x in myresult:
-            ip_srv = ip_srv + str(x[0]) + "\n"    
-        mns = data = string.replace( ip_srv, '\r', '' )
-    
+            ip_srv = ip_srv + str(x[0]) + "\n"
+        mns = ("\n" 
+        "--------------------------------------------------------------------" + "\n" 
+        "- No se pudo obtener la direccion IP de los siguientes servidores   " + "\n"
+        "--------------------------------------------------------------------" + "\n"
+        + ip_srv )
+
+        mns = data = string.replace( mns, '\r', '' )
+        
         file = open("/tmp/environment.txt", "w")
         file.write("MY_DATA=" + mns)
         file.close()
-    
+
         prefix = ' '
         suffix = '\\n \\'
-    
+
         with open('/tmp/environment.txt', 'r') as src:
             with open('/tmp/environment2.txt', 'w') as dest:
                for line in src:
