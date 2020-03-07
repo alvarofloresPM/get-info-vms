@@ -283,8 +283,7 @@ def verifyipserver():
     mycursor = mydb.cursor()
     mycursor.execute('SELECT server_name FROM servers.server Where server_ip = "" and server_state = "Running"')
     myresult = mycursor.fetchall()
-    print ("HERE -----------------------------------------------------------" + str(myresult))
-    if myresult is not None:
+    if str(myresult) != "[]":
         for x in myresult:
             ip_srv = ip_srv + str(x[0]) + "\n"
         mns = ("\n" 
