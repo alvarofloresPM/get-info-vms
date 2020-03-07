@@ -38,7 +38,6 @@ def updateinfoserver(data, master_ip):
         mycursor = mydb.cursor()
         mycursor.execute("SELECT server_ip FROM servers.server Where server_name = '" + server_name + "'")
         myresult = mycursor.fetchall()
-        print ("Error ------------------" + str(myresult[0]))
         if str(myresult[0]) == "(u'',)":
             response = ""
             response = s.run_ps("get-vm -Name '" + server_name + "' | ?{$_.State -eq \"Running\"} | select -ExpandProperty networkadapters | select ipaddresses | Format-List")
@@ -283,7 +282,7 @@ def verifyipserver():
     mycursor = mydb.cursor()
     mycursor.execute('SELECT server_name FROM servers.server Where server_ip = "" and server_state = "Running"')
     myresult = mycursor.fetchall()
-    if myresult is not None:
+    if str(myresult[0]) == "(u'',)":
         for x in myresult:
             ip_srv = ip_srv + str(x[0]) + "\n"
         mns = ("\n" 
