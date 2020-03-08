@@ -83,8 +83,8 @@ def updateinfoserver(data, master_ip):
             server_uptime_d = str(response1[0][0])
             server_uptime_h = str(response1[0][1])
             server_uptime_m = str(response1[0][2])
-        server_uptime = server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos "
-        print (server_uptime_d + " dias " + server_uptime_h + " horas " + server_uptime_m +" minutos ")
+        server_uptime = server_uptime_d + "d " + server_uptime_h + "h " + server_uptime_m +"m "
+        print (server_uptime_d + "d " + server_uptime_h + "h " + server_uptime_m +"m ")
     else:
         server_uptime = ""
     # Update data to the database
