@@ -323,25 +323,29 @@ def windowsinfomaster(master_ip, master_name):
     master_ram = str(m)
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n0}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
-    disk_c = re.findall('Libre \(GB\) : ([0-9.]{1,9})', d)
+    disk_c = re.findall('Libre \(GB\) : ([0-9.,]{1,9})', d)
     if len(disk_c[0]) != 0:
         disk_cr = str(disk_c[0])
         disk_cr = disk_cr.replace('.', '')
+        disk_cr = disk_cr.replace(',', '')
     else:
         disk_cr = "-"
     try:
         disk_dr = str(disk_c[1])
         disk_dr = disk_dr.replace('.', '')
+        disk_dr = disk_dr.replace(',', '')
     except IndexError:
         disk_dr = "-"
     try:
         disk_er = str(disk_c[2])
         disk_er = disk_er.replace('.', '')
+        disk_er = disk_er.replace(',', '')
     except IndexError:
         disk_er = "-"
     try:
         disk_zr = str(disk_c[3])
         disk_zr = disk_zr.replace('.', '')
+        disk_zr = disk_zr.replace(',', '')
     except IndexError:
         disk_zr = "-"
 
