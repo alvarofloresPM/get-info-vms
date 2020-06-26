@@ -323,7 +323,7 @@ def windowsinfomaster(master_ip, master_name):
     master_ram = str(m)
     d = s.run_ps('Get-WMIObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3} | Select-Object @{n="Unidad";e={($_.Name)}}, @{n="Libre (GB)";e={"{0:n0}" -f ($_.freespace/1gb)}} | Format-List').std_out
     d = d.rstrip()
-    disk_c = re.findall('Libre \(GB\) : ([0-9.,]{1,9})', d)
+    disk_c = re.findall("[CDEZ]{1,9}:\nLibre \(GB\) : ([0-9.,]{1,9})", d)
     if len(disk_c[0]) != 0:
         disk_cr = str(disk_c[0])
         disk_cr = disk_cr.replace('.', '')
