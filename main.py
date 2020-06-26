@@ -325,7 +325,7 @@ def windowsinfomaster(master_ip, master_name):
     print(d)
     d = d.rstrip()
     print(d)
-    disk_c = re.findall("[CDEZ]{1,9}:\nLibre \(GB\) : ([0-9.,]{1,9})", d)
+    disk_c = re.findall('[CDEZ]{1,9}:\nLibre \(GB\) : ([0-9.,]{1,9})', d)
     print(str(disk_c[0]))
     if len(disk_c[0]) != 0:
         disk_cr = str(disk_c[0])
